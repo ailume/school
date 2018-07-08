@@ -1,0 +1,158 @@
+<!DOCTYPE HTML5>
+<html>
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, width=device-width">
+    <title>投票结果</title>
+    <link href="../../public/css/profile/qv.css" rel="stylesheet" />
+</head>
+<body>
+<a class="a-back" href="../profile/vote_list.html">返回投票列表</a>
+<div class="lqt-container" id="vote">
+	<div class="homework-container" id="headerBox">
+		<ul class="homework-list clearfix header-banner" id="bannerBox">
+			<!-- 多选 -->
+			<li class="it banner-sheet" data-type="checkbox" id="111"><!-- id：题目id -->
+				<div class="scroll-wrapper">
+					<div class="scroll-dom">
+						<div class="homework-content">
+							<div class="homework-title">1.<b>［多选］</b>content</div>
+							<ul class="homework-answer select-data">
+								<li class="answer clearfix" id="11">
+									<label class="clearfix">
+									<span class="icon-common icon-checkbox"><span class="icon-checkbox-point active">&#x002c;</span></span>
+									<span class="answer-content">content</span>
+									</label>
+									<a class="preview" href="javascript:void(0)"><img src="https://img6.bdstatic.com/img/image/pcindex/touxxiaophai.jpg"/></a>
+									<div class="percent-container clearfix">
+										<p class="percent"><span style="width:50%"></span></p>
+										<span class="tips">544票</span>
+									</div>
+								</li>
+								<li class="answer clearfix" id="12">
+									<label class="clearfix">
+									<span class="icon-common icon-checkbox"><span class="icon-checkbox-point">&#x002c;</span></span>
+									<span class="answer-content">content</span>
+									</label>
+									<p class="audio-name">fqs.mp3</p>
+									<audio controls="controls">
+										<source src="../../public/media/fqs.ogg" type="audio/ogg">
+										<source src="../../public/media/fqs.mp3" type="audio/mpeg">
+										Your browser does not support the audio tag.
+									</audio>
+									<div class="percent-container clearfix">
+										<p class="percent"><span style="width:20%"></span></p>
+										<span class="tips">544票</span>
+									</div>
+								</li>
+								<li class="answer clearfix" id="13">
+									<label class="clearfix">
+									<span class="icon-common icon-checkbox"><span class="icon-checkbox-point">&#x002c;</span></span>
+									<span class="answer-content">content</span>
+									</label>
+									<video controls="controls">
+										<source src="../../public/media/video.ogg" type="video/ogg">
+										<source src="../../public/media/video.mp4" type="video/mp4">
+										<source src="../../public/media/video.mov" type="video/webm">
+										Your browser does not support the video tag.
+									</video>
+									<div class="percent-container clearfix">
+										<p class="percent"><span style="width:50%"></span></p>
+										<span class="tips">544票</span>
+									</div>
+								</li>
+								<li class="answer clearfix" id="14">
+									<label class="clearfix">
+									<span class="icon-common icon-checkbox"><span class="icon-checkbox-point">&#x002c;</span></span>
+									<span class="answer-content">content</span>
+									</label>
+									<a class="file-name" href="">文件名文件名文件名文件名文件名.doc</a>
+									<div class="percent-container clearfix">
+										<p class="percent"><span style="width:50%"></span></p>
+										<span class="tips">544票</span>
+									</div>
+								</li>
+							</ul>
+						</div>
+						<input class="answer-data" type="hidden" />
+					</div>
+				</div>
+			</li>
+			<!-- 多选end -->
+			<!-- 单选 -->
+			<li class="it banner-sheet" data-type="radio" id="222"><!-- id：题目id -->
+				<div class="scroll-wrapper">
+					<div class="scroll-dom">
+						<div class="homework-content">
+							<p class="homework-title">2.<b>［单选］</b>content</p>
+							<ul class="homework-answer select-data">
+								<li class="answer clearfix" id="21">
+									<label class="clearfix">
+									<span class="icon-common icon-radio"><span class="icon-radio-point active"></span></span>
+									<span class="answer-content">content</span>
+									</label>
+									<div class="percent-container clearfix">
+										<p class="percent"><span style="width:10%"></span></p>
+										<span class="tips">544票</span>
+									</div>
+								</li>
+								<li class="answer clearfix" id="22">
+									<label class="clearfix">
+									<span class="icon-common icon-radio"><span class="icon-radio-point"></span></span>
+									<span class="answer-content">content</span>
+									</label>
+									<div class="percent-container clearfix">
+										<p class="percent"><span style="width:20%"></span></p>
+										<span class="tips">544票</span>
+									</div>
+								</li>
+								<li class="answer clearfix" id="23">
+									<label class="clearfix">
+									<span class="icon-common icon-radio"><span class="icon-radio-point"></span></span>
+									<span class="answer-content">content</span>
+									</label>
+									<div class="percent-container clearfix">
+										<p class="percent"><span style="width:40%"></span></p>
+										<span class="tips">544票</span>
+									</div>
+								</li>
+							</ul>
+						</div>
+						<input class="answer-data" type="hidden" />
+					</div>
+				</div>
+			</li>
+			<!-- 单选end -->
+		</ul>
+	</div>
+</div>
+<div class="homework-bar clearfix" id="bar">
+	<a id="pre" class="homework-btn homework-pre clearfix" href="javascript:void(0)">
+		<em class="icon-change icon-pre">&#x0025;</em><span class="txt-change">上一题</span>
+	</a>
+	<a id="next" class="homework-btn homework-next clearfix" href="javascript:void(0)">
+		<span class="txt-change">下一题</span><em class="icon-change icon-next">&#x0025;</em>
+	</a>
+	<span class="pre-loc"></span>
+</div>
+<script>
+	var g_config = {
+		baseUrl: '',
+		jsBasePath: '',
+		jsVersion: '',
+		pageType: 'vote_detail',
+		id: '6666',//作业id
+		wx: {
+			appId: 'wx2e3a10f99ee1c75e',
+			timestamp: '', // 必填，生成签名的时间戳
+		    nonceStr: '', // 必填，生成签名的随机串
+		    signature: '',// 必填，签名
+		}
+	};
+	var ROOTPath = '';
+</script>
+<script src="../../public/js/lib/seajs/seajs/2.3.0/sea.js"></script>
+<script src="../../public/js/config/lqt.js"></script>
+<script>seajs.use("../../public/js/profile/qv_detail.js");</script>
+</body>
+</html>

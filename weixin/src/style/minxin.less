@@ -1,0 +1,96 @@
+// 颜色值
+@color42: #424242;
+@color97: #979797;
+@colorDD: #DDDDDD;
+@white: #FFFFFF;
+@green: #48B319;
+
+
+// 字体设置
+@baseSize:56rem;
+
+@fontSize24:24/@baseSize;
+@fontSize26:26/@baseSize;
+@fontSize28:28/@baseSize;
+@fontSize30:30/@baseSize;
+@fontSize32:32/@baseSize;
+@fontSize34:34/@baseSize;
+@fontSize36:36/@baseSize;
+@fontSize38:38/@baseSize;
+@fontSize40:40/@baseSize;
+
+// 背景图片地址和大小
+.mixin-bis(@url) {
+  background-image: url(@url);
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+}
+
+.mixin-borderRadius(@radius) {
+  -webkit-border-radius: @radius;
+  -moz-border-radius: @radius;
+  -ms-border-radius: @radius;
+  -o-border-radius: @radius;
+  border-radius: @radius;
+}
+
+.mixin-padding(@left,@right) {
+  padding-left: @left;
+  padding-right: @right;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+//定位全屏
+.mixin-allcover{
+  position:absolute;
+  top:0;
+  right:0;
+}
+
+//定位上下左右居中
+.mixin-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+//定位上下居中
+.mixin-lineHight {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+//定位上下居中
+.mixin-leftRight {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+//宽高
+.mixin-wh(@width, @height){
+  width: @width;
+  height: @height;
+}
+
+//字体大小、行高、字体
+/*@mixin font($size, $line-height, $family: 'Microsoft YaHei') {
+  font: #{$size}/#{$line-height} $family;
+}*/
+
+//字体大小，颜色
+.mixin-sc(@size, @color){
+  font-size: @size;
+  color: @color;
+}
+
+//flex 布局和 子元素 对其方式
+.mixin-fj(@type: space-between){
+  display: flex;
+  justify-content: @type;
+
+}

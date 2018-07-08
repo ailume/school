@@ -1,0 +1,88 @@
+{
+  "curriculum": [
+    {
+      "title": "语文课",
+      "numberId": "001",
+      "students": [
+        {
+          "name": "语文课全体家长",
+          "number": "001-001"
+        },
+        {
+          "name": "语文课全体学生",
+          "number": "001-002"
+        }
+      ]
+    },
+    {
+      "title": "英语课",
+      "numberId": "002",
+      "students": [
+        {
+          "name": "英语课全体家长",
+          "number": "002-001"
+        },
+        {
+          "name": "英语课全体学生",
+          "number": "002-002"
+        }
+      ]
+    },
+    {
+      "title": "生物课",
+      "numberId": "003",
+      "students": [
+        {
+          "name": "生物课全体家长",
+          "number": "003-001"
+        },
+        {
+          "name": "生物课全体学生",
+          "number": "003-002"
+        }
+      ]
+    },
+    {
+      "title": "数学课",
+      "numberId": "004",
+      "students": [
+        {
+          "name": "数学课全体家长",
+          "number": "004-001"
+        },
+        {
+          "name": "数学课全体学生",
+          "number": "004-002"
+        }
+      ]
+    },
+    {
+      "title": "物理课",
+      "numberId": "005",
+      "students": [
+        {
+          "name": "物理课全体家长",
+          "number": "005-001"
+        },
+        {
+          "name": "物理课全体学生",
+          "number": "005-002"
+        }
+      ]
+    },
+    {
+      "title": "历史课",
+      "numberId": "006",
+      "students": [
+        {
+          "name": "历史课全体家长",
+          "number": "006-001"
+        },
+        {
+          "name": "历史课全体学生",
+          "number": "006-002"
+        }
+      ]
+    }
+  ]
+}

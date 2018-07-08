@@ -1,0 +1,29 @@
+<!DOCTYPE HTML5>
+<html>
+  <head>
+  	<meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, width=device-width">
+    <title>成绩</title>
+    <link href="../../public/css/homework/index.css" rel="stylesheet" />
+  </head>
+  <body>
+  	<a class="a-back" href="../profile/profile.jsp">返回个人中心</a>
+  	<div class="lqt-wrapper">
+  		<ul class="lqt-list" id="results" data-page="1">
+			<!-- 作业 -->
+		</ul>
+		<div id="more"><div id="loading"><span class="scale-point active-1 scalePoint"></span><span class="scale-point active-2 scalePoint"></span><span class="scale-point active-3 scalePoint"></span><span class="pullTxt">正在加载中</span></div></div>
+  	</div>
+  	<script>
+  		var g_config = {
+  			jsBasePath: '',
+  			jsVersion: '',
+  			pageType: 'results', 
+  			pageName: 'results'
+  		};
+  	</script>
+	<script src="../../public/js/lib/seajs/seajs/2.3.0/sea.js"></script>
+	<script src="../../public/js/config/lqt.js"></script>
+	<script>seajs.use("../../public/js/list/list.js");</script>
+  </body>
+</html>

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+        <title>会话失效</title>
+        <link rel="stylesheet" href="css/weui.min.css"/>
+    </head>
+    <body>
+  		<div class="weui_msg">
+		    <div class="weui_icon_area"><i class="weui_icon_msg weui_icon_warn"></i></div>
+		    <div class="weui_text_area">
+		        <h2 class="weui_msg_title">与服务器会话已失效</h2>
+		    </div>
+		    <div class="weui_opr_area">
+		        <p class="weui_btn_area">
+		        	<a class="weui_btn weui_btn_primary" href="https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx2e3a10f99ee1c75e&redirect_uri=http://app.lqtedu.com/weixin/oauth&response_type=code&scope=snsapi_userinfo&state=1#wechat_redirect">重新登录</a>
+		            <input type="button" class="weui_btn weui_btn_default" value="关闭窗口" onclick="WeixinJSBridge.call('closeWindow')">
+		        </p>
+		    </div>
+		</div>
+    </body>
+</html>

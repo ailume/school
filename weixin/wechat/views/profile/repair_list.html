@@ -1,0 +1,78 @@
+<!DOCTYPE HTML5>
+<html>
+  <head>
+  	<meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, width=device-width">
+    <title>报修列表</title>
+    <link href="../../public/css/profile/list.css" rel="stylesheet" />
+  </head>
+  <body>
+  	<a class="a-back" href="../profile/profile.jsp">返回个人中心</a>
+  	<nav id="nav" style="display:none;">
+  		<ul class="clearfix">
+  			<li class="active"><a href="javascript:void(0)" status="all" page="1">全部</a></li>
+  			<li><a href="javascript:void(0)" status="101" page="1">待受理</a></li>
+  			<li><a href="javascript:void(0)" status="102" page="1">维修中</a></li>
+  			<li><a href="javascript:void(0)" status="103" page="1">需确认</a></li>
+  			<li><a href="javascript:void(0)" status="104" page="1">已完成</a></li>
+  			<li class="bg"></li>
+  		</ul>
+  	</nav>
+  	<div class="lqt-wrapper">
+  		<ul class="lqt-list" id="repair_list" data-page="1" style="display:block;">
+			<!-- 报修 -->
+			<li class="it clearfix it-m" id="$${it.id}" status="$${it.status}">
+					<div class="list-title">
+						<a class="link" href="$${rootPath}r4trepair_detail.jsp?repairId=$${it.id}&listType=$${it.listType}"><span class="title-common {@if it.redStatus==1}new{@/if}"></span></a>
+					</div>
+					<div class="list-content">
+						<div class="content-wapper">
+							<a class="link" href="$${rootPath}repair_detail.jsp?repairId=$${it.id}&listType=$${it.listType}">
+	  							<p class="content-title">$${it.title}</p>
+	  							<p class="content-info">$${it.deptName}</p>
+							</a>
+						</div>
+					</div>
+					<div class="list-tips">
+						<p class="time">$${it.addDate}</p>
+						<p class="status" status="{@if it.status==101||it.status==201}waitting{@else if it.status==102||it.status==202}fixing{@else if it.status==103||it.status==203}comfirming{@else if it.status==104||it.status==204}finish{@/if}">
+						</p>
+					</div>
+				</li>
+				<li class="it clearfix it-m" id="$${it.id}" status="$${it.status}">
+					<div class="list-title">
+						<a class="link" href="$${rootPath}repair_detail.jsp?repairId=$${it.id}&listType=$${it.listType}"><span class="title-common {@if it.redStatus==1}new{@/if}"></span></a>
+					</div>
+					<div class="list-content">
+						<div class="content-wapper">
+							<a class="link" href="$${rootPath}repair_detail.jsp?repairId=$${it.id}&listType=$${it.listType}">
+	  							<p class="content-title">$${it.title}</p>
+	  							<p class="content-info">$${it.deptName}</p>
+							</a>
+						</div>
+					</div>
+					<div class="list-tips">
+						<p class="time">$${it.addDate}</p>
+						<p class="status" status="finish">
+							<em class="icon" style="width:1.2rem"></em>
+						</p>
+					</div>
+				</li>
+		</ul>
+		<div id="more"><div id="loading"><span class="scale-point active-1 scalePoint"></span><span class="scale-point active-2 scalePoint"></span><span class="scale-point active-3 scalePoint"></span><span class="pullTxt">正在加载中</span></div></div>
+  	</div>
+  	<a id="floatWindow" href="repair_form.html"><span>我要<br>报修</span></a>
+  	<script>
+  		var g_config = {
+  			jsBasePath: '',
+  			jsVersion: '',
+  			pageType: 'repair_list',
+  			pageName: 'repair_list',
+  			listType: 2
+  		};
+  	</script>
+	<script src="../../public/js/lib/seajs/seajs/2.3.0/sea.js"></script>
+	<script src="../../public/js/config/lqt.js"></script>
+	<!--<script>seajs.use("../../public/js/list/list.js");</script>-->
+  </body>
+</html>

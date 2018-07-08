@@ -1,0 +1,46 @@
+<!DOCTYPE HTML5>
+<html>
+  <head>
+  	<meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, width=device-width">
+    <title>一卡通</title>
+    <link href="../../public/css/profile/list.css" rel="stylesheet" />
+    <link href="../../public/css/card/weui.min.css" rel="stylesheet" />
+    <link href="../../public/css/card/jquery-weui.min.css" rel="stylesheet" />
+  </head>
+  <body>
+  	<a class="a-back" href="../profile/profile.jsp">返回个人中心</a>
+  	<div class="lqt-wrapper">
+        <div id="cardInfo" class="weui-panel__bd" style="background:#fff;margin:.3rem 0 .5rem 0">
+          	<div class="weui-media-box weui-media-box_text">
+            	<p class="weui-media-box__desc"><span class="schName">*********学校</span></p>
+            	<p class="weui-media-box__desc" style="margin-top:.1rem"><span class="name">**</span>&nbsp;&nbsp;<span class="number">*********</span></p>
+          	</div>
+          	<div class="weui-media-box weui-media-box_text">
+            	<p class="weui-media-box__desc" style="text-align:center;font-size:.5rem;color:#48B319;">余额：<span class="money">*.**</span>元</p>
+          	</div>
+        </div>
+        <div style="padding:0 .2rem .2rem .2rem;">
+       		<a href="pay.jsp" class="weui-btn weui-btn_primary">充值</a>
+        </div>
+  	</div>
+  	<script>
+  		var g_config = {
+  			jsBasePath: '',
+  			jsVersion: '',
+  			pageType: 'card',
+  			pageName: 'card_pay',
+  			wx: {
+  				appId: "", 
+	  			timestamp: "", 
+	  			nonceStr: "", 
+	  			signature: ""
+  			}
+  		};
+  	</script>
+	<script src="../../public/js/lib/seajs/seajs/2.3.0/sea.js"></script>
+	<script src="../../public/js/config/lqt.js"></script>
+	<script src="../../public/js/lib/seajs/seajs/2.3.0/sea.js"></script>
+	<script>seajs.use("../../public/js/card/card.js");</script>
+  </body>
+</html>

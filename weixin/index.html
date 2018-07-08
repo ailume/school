@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="initial-scale=1, maximum-scale= 1, minimum-scale=1, user-scalable=no">
+  <meta content="no" name="apple-mobile-web-app-capable">
+  <meta content="yes" name="apple-touch-fullscreen">
+  <meta content="telephone=no" name="format-detection">
+  <meta name="keywords" content="">
+  <meta name="description" content="">
+  <title>个人中心</title>
+  <style lang="">
+    .payroll-title .weui-cell{
+      padding: 0;
+    }
+    .payroll-title .weui-cell__ft{
+      display: none;
+    }
+    .payroll-title .vux-popup-picker-select{
+      display: none;
+    }
+  </style>
+  <script>
+   // const roterPath = "http://192.168.1.24:8080/lqtedu"
+      const roterPath = "http://gz.lqtedu.com"
+  </script>
+  <script>
+    ;(function(w) {
+        comFuc = {
+          init: function(){
+            var self = this;
+            self.configRem();
+          },
+          configRem: function(){
+            fixRem();
+            window.addEventListener('resize', fixRem, false);
+          },
+          fixRem: function(){
+            var windowWidth =  document.documentElement.clientWidth || window.innerWidth || document.body.clientWidth;
+            var rootSize = 28 * ( windowWidth / 375);
+            var htmlNode = document.getElementsByTagName("html")[0];
+            htmlNode.style.fontSize = rootSize+'px';
+          }
+        };
+
+      //通过window width 修改html font-size
+      function fixRem(){
+        var windowWidth =  document.documentElement.clientWidth || window.innerWidth || document.body.clientWidth;
+        var rootSize = 28 * ( windowWidth / 375);
+        var htmlNode = document.getElementsByTagName("html")[0];
+        htmlNode.style.fontSize = rootSize+'px';
+      }
+     // fixRem();
+
+      comFuc.init();
+
+    })(window);
+  </script>
+</head>
+<body>
+<div id="app"></div>
+<!-- built files will be auto injected -->
+</body>
+</html>

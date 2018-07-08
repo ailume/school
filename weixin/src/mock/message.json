@@ -1,0 +1,70 @@
+{
+  "massages":[
+    {
+      "title":"通知标题通知标题字数显示通知标题通知标题字数显示",
+      "branch":"IT部门",
+      "number":1001,
+      "status":0
+    },
+    {
+      "title":"该方法的参数可以是一个字符串路径，或者一个描述地址的对象。例如",
+      "branch":"设计部",
+      "number":1002,
+      "status":1
+    },
+    {
+      "title":"跟 router.push 很像，唯一的不同就是，它不会向 history 添加新记录，而是跟它的方法名一样",
+      "branch":"测试部",
+      "number":1003,
+      "status":2
+    },
+    {
+      "title":"这个方法的参数是一个整数，意思是在 history 记录中向前或者后退多少步，类似 window.history.go(n)",
+      "branch":"运营部",
+      "number":1004,
+      "status":1
+    },
+    {
+      "title":"还有值得提及的，vue-router 的导航方法 （push、 replace、 go）",
+      "branch":"销售部",
+      "number":1005,
+      "status":0
+    },
+    {
+      "title":"该方法的参数可以是一个字符串路径，或者一个描述地址的对象。例如",
+      "branch":"设计部",
+      "number":1002,
+      "status":1
+    },
+    {
+      "title":"跟 router.push 很像，唯一的不同就是，它不会向 history 添加新记录，而是跟它的方法名一样",
+      "branch":"测试部",
+      "number":1003,
+      "status":2
+    },
+    {
+      "title":"这个方法的参数是一个整数，意思是在 history 记录中向前或者后退多少步，类似 window.history.go(n)",
+      "branch":"运营部",
+      "number":1004,
+      "status":1
+    },
+    {
+      "title":"该方法的参数可以是一个字符串路径，或者一个描述地址的对象。例如",
+      "branch":"设计部",
+      "number":1002,
+      "status":1
+    },
+    {
+      "title":"跟 router.push 很像，唯一的不同就是，它不会向 history 添加新记录，而是跟它的方法名一样",
+      "branch":"测试部",
+      "number":1003,
+      "status":2
+    },
+    {
+      "title":"这个方法的参数是一个整数，意思是在 history 记录中向前或者后退多少步，类似 window.history.go(n)",
+      "branch":"运营部",
+      "number":1004,
+      "status":1
+    }
+  ]
+}

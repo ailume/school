@@ -1,0 +1,1117 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>H5相关接口说明</title>
+	<script type="text/javascript" src="public/js/lib/jquery/jquery-2.0.3.min.js"></script>
+	<script type="text/javascript">
+	$(function(){
+		$("table.api_table").hide();
+	});
+	$("table.api_table").hide();
+	var showTable = function (id) {
+		$("table.api_table").hide();
+		$("#"+id).show();
+	}	
+	</script>
+</head>
+<body>
+	<table border="1" style="margin:20px;width:900px;">
+		<tr>
+			<th style="text-align:center;" colspan="3">前端接口说明</th>
+		</tr>
+		<tr>
+			<th style="text-align:center;width:160px;">模块</th>
+			<th style="text-align:center;">ajax接口</th>
+			<th style="text-align:center;">post接口</th>
+		</tr>
+		<tr>
+			<td style="text-align:center;">通知模块</td>
+			<td style="text-align:center;">
+				<a href="javascript:void(0);" onclick="showTable('notice_list')">通知列表</a>
+			</td>
+			<td style="text-align:center;">
+				<a href="javascript:void(0);" onclick="showTable('notice_rep')">通知回复</a>
+			</td>
+		</tr>
+		<tr>
+		</tr>
+		<tr>
+			<td style="text-align:center;">作业模块</td>
+			<td style="text-align:center;">
+				<a href="javascript:void(0);" onclick="showTable('homework_list')">作业列表</a>
+			</td>
+			<td style="text-align:center;">
+				<a href="javascript:void(0);" onclick="showTable('homework_rep')">作业提交</a>
+			</td>
+		</tr>
+		<tr>
+			<td style="text-align:center;">成绩模块</td>
+			<td style="text-align:center;">
+				<a href="javascript:void(0);" onclick="showTable('exam_list')">成绩列表</a>
+			</td>
+			<td style="text-align:center;">
+			</td>
+		</tr>
+		<tr>
+			<td style="text-align:center;">空间模块</td>
+			<td style="text-align:center;">
+				<a href="javascript:void(0);" onclick="showTable('space_list')">空间列表</a>
+				<a href="javascript:void(0);" onclick="showTable('space_topiclist')">空间帖子列表</a>
+			</td>
+			<td style="text-align:center;">
+				<a href="javascript:void(0);" onclick="showTable('topic_add')">发帖</a>
+				<a href="javascript:void(0);" onclick="showTable('topic_rep')">帖子回复</a>
+				<a href="javascript:void(0);" onclick="showTable('topic_zan')">帖子点赞</a>
+			</td>
+		</tr>
+		<tr>
+			<td style="text-align:center;">报修模块</td>
+			<td style="text-align:center;">
+				<a href="javascript:void(0);" onclick="showTable('repair_status')">报修状态说明</a>
+				<a href="javascript:void(0);" onclick="showTable('repair_my_list')">报修-列表</a>
+				<a href="javascript:void(0);" onclick="showTable('repair_info')">报修详情and评论</a>
+			</td>
+			<td style="text-align:center;">
+				<a href="javascript:void(0);" onclick="showTable('repair_add')">报修-发起报修</a>
+				<a href="javascript:void(0);" onclick="showTable('repair_todo')">报修处理-受理</a>
+				<a href="javascript:void(0);" onclick="showTable('repair_todo')">报修处理-完毕</a>
+				<a href="javascript:void(0);" onclick="showTable('repair_todo')">报修-报修评星</a>
+				<a href="javascript:void(0);" onclick="showTable('repair_comment')">报修-留言/回复留言</a>
+			</td>
+		</tr>
+		<tr>
+			<td style="text-align:center;">投票模块</td>
+			<td style="text-align:center;">
+				<a href="javascript:void(0);" onclick="showTable('vote_list')">投票列表</a>
+				<a href="javascript:void(0);" onclick="showTable('vote_info')">投票详情</a>
+			</td>
+			<td style="text-align:center;">
+				<a href="javascript:void(0);" onclick="showTable('vote_do')">提交投票</a>
+			</td>
+		</tr>
+		<tr>
+			<td style="text-align:center;">问卷模块</td>
+			<td style="text-align:center;">
+				<a href="javascript:void(0);" onclick="showTable('examen_list')">问卷列表</a>
+				<a href="javascript:void(0);" onclick="showTable('examen_info')">问卷详情</a>
+			</td>
+			<td style="text-align:center;">
+				<a href="javascript:void(0);" onclick="showTable('examen_do')">提交问卷</a>
+			</td>
+		</tr>
+	</table>
+	
+	<table border="1" style="margin:20px;width:900px;" class="api_table" id="notice_list">
+		<tr>
+			<th style="text-align:center;" colspan="2">通知列表</th>
+		</tr>
+		<tr>
+			<th style="width:160px;">ajax接口地址</th>
+			<td>/service/ajax/noticeAjax.jsp</td>
+		</tr>
+		<tr>
+			<th>Ajax返回JSON对象参数</th>
+			<td>
+				list 列表内容（结构参照下面数据demo）<br/>
+				code 页面状态 200 或者 404<br/>
+				updateTime （下拉刷新时才有）<br/>
+		 	</td>
+		</tr>
+		<tr>
+			<th>参数介绍</th>
+			<td>
+				ISIMPORT 重要通知（未使用）<br/>
+				REPLAYFLAG 已回复标志（同已读）<br/>
+				PUBLISHDATE 发布时间<br/>
+				ALLCOUNT 大范围通知标志（未使用）<br/>
+				DEPTNAME 部门名称<br/>
+				ALLOWREPLEY 允许回复标志<br/>
+				VIEWCOUNT 已读总数<br/>
+				USERNAME 发布人<br/>
+				TITLE 标题<br/>
+				ID 通知ID<br/>
+		 	</td>
+		</tr>
+		<tr>
+			<th>数据demo</th>
+			<td>
+				[{"ISIMPORT"="", "REPLAYFLAG=", "PUBLISHDATE"="07-21", "ALLCOUNT"="0", "DEPTNAME"="总务处", "ALLOWREPLEY"="1", "VIEWCOUNT"="4", "USERNAME"="黑牛", "TITLE"="11111111111111111", "ID"="A32964"}, 
+				{"ISIMPORT"="", "REPLAYFLAG=", "PUBLISHDATE"="07-14", "ALLCOUNT"="0", "DEPTNAME"="校长室", "ALLOWREPLEY"="1", "VIEWCOUNT"="6", "USERNAME"="董玉雪", "TITLE"="全体通知7月14日11点41", "ID"="A32895"}, 
+				{"ISIMPORT"="", "REPLAYFLAG=", "PUBLISHDATE"="07-14", "ALLCOUNT"="0", "DEPTNAME"="校长室", "ALLOWREPLEY"="1", "VIEWCOUNT"="6", "USERNAME"="董玉雪", "TITLE"="全体通知7月14日11点37分", "ID"="A32894"}, 
+				{"ISIMPORT"="0", "REPLAYFLAG=", "PUBLISHDATE"="07-14", "ALLCOUNT"="0", "DEPTNAME"="校长室", "ALLOWREPLEY"="1", "VIEWCOUNT"="0", "USERNAME"="董玉雪", "TITLE"="最新通知7月14日 10:37", "ID"="A32882"}, 
+				{"ISIMPORT"="", "REPLAYFLAG"="24323", "PUBLISHDATE"="03-17", "ALLCOUNT"="0", "DEPTNAME"="校长室", "ALLOWREPLEY"="1", "VIEWCOUNT"="6", "USERNAME"="黑牛", "TITLE"="胡山河不能看", "ID"="A32850"}, 
+				{"ISIMPORT"="0", "REPLAYFLAG"="24323", "PUBLISHDATE"="03-10", "ALLCOUNT"="0", "DEPTNAME"="校长室", "ALLOWREPLEY"="1", "VIEWCOUNT"="5", "USERNAME"="黑牛", "TITLE"="测试阿斯顿发八十多分12222", "ID"="A32842"}, 
+				{"ISIMPORT"="0", "REPLAYFLAG=", "PUBLISHDATE"="03-10", "ALLCOUNT"="0", "DEPTNAME"="校长室", "ALLOWREPLEY"="1", "VIEWCOUNT"="4", "USERNAME"="黑牛", "TITLE"="测试修改2333333", "ID"="A32841"}, 
+				{"ISIMPORT"="0", "REPLAYFLAG=", "PUBLISHDATE"="03-10", "ALLCOUNT"="0", "DEPTNAME"="校长室", "ALLOWREPLEY"="1", "VIEWCOUNT"="3", "USERNAME"="黑牛", "TITLE"="测试修改通知11111", "ID"="A32840"}, 
+				{"ISIMPORT"="", "REPLAYFLAG=", "PUBLISHDATE"="03-09", "ALLCOUNT"="0", "DEPTNAME"="校长室", "ALLOWREPLEY"="1", "VIEWCOUNT"="2", "USERNAME"="黑牛", "TITLE"="今天要测试新红点啦", "ID"="A32830"}, 
+				{"ISIMPORT"="", "REPLAYFLAG=", "PUBLISHDATE"="03-08", "ALLCOUNT"="0", "DEPTNAME"="校长室", "ALLOWREPLEY"="1", "VIEWCOUNT"="1", "USERNAME"="黑牛", "TITLE"="全校通知2", "ID"="A32821"}, 
+				{"ISIMPORT"="", "REPLAYFLAG=", "PUBLISHDATE"="03-08", "ALLCOUNT"="0", "DEPTNAME"="校长室", "ALLOWREPLEY"="1", "VIEWCOUNT"="3", "USERNAME"="黑牛", "TITLE"="全校通知", "ID"="A32820"}]
+		 	</td>
+		</tr>
+	</table>
+	<table border="1" style="margin:20px;width:900px;" class="api_table" id="notice_rep">
+		<tr>
+			<th style="text-align:center;" colspan="2">通知回复</th>
+		</tr>
+		<tr>
+			<th style="width:160px;">post接口地址</th>
+			<td>/service/post/commentPost.jsp</td>
+		</tr>
+		<tr>
+			<th>返回JSON对象参数</th>
+			<td>
+				code 页面状态 200 或者 201<br/>
+				message 出错信息<br/>
+		 	</td>
+		</tr>
+		<tr>
+			<th>传入参数</th>
+			<td>
+				noticeId 通知ID<br/>
+				content 回复内容<br/>
+		 	</td>
+		</tr>
+		<tr>
+			<th>数据demo</th>
+			<td>
+				{"code"="200", "message"=""} 或者 {"code"="201", "message"="当前通知不存在或不允许回复"}
+		 	</td>
+		</tr>
+	</table>
+	
+	<table border="1" style="margin:20px;width:900px;" class="api_table" id="homework_list">
+		<tr>
+			<th style="text-align:center;" colspan="2">作业列表</th>
+		</tr>
+		<tr>
+			<th style="width:160px;">ajax接口地址</th>
+			<td>/service/ajax/homeworkAjax.jsp</td>
+		</tr>
+		<tr>
+			<th>Ajax返回JSON对象参数</th>
+			<td>
+				list 列表内容（结构参照上面数据demo）<br/>
+				code 页面状态 200 或者 404<br/>
+				updateTime （下拉刷新时才有）<br/>
+				totalpage 分页总页数
+		 	</td>
+		</tr>
+		<tr>
+			<th style="width:160px;">参数介绍</th>
+			<td>
+				ADDDATE 添加时间<br/>
+				TYPENAME 作业类型名称<br/>
+				ANID 作业答案链接ID （已完成作业才有）<br/>
+		 		COLOR 作业列表颜色<br/>
+		 		WORKID 作业ID<br/>
+		 		TITLE 显示标题<br/>
+		 		SPACEID 所属空间ID（未使用）<br/>
+		 		TYPE 作业类型（未使用）<br/>
+		 		NAME 作业科目名称</td>
+		</tr>
+		<tr>
+			<th>数据demo</th>
+			<td>
+				[{"ADDDATE"="06/30", "TYPENAME"="课后作业", "ANID=", "COLOR"="#48B319", "WORKID"="A32031", "TITLE"="06-30 莫西莫西", "SPACEID"="A31151", "TYPE"="1", "NAME"="日语"}, 
+				{"ADDDATE"="04/07", "TYPENAME"="课后作业", "ANID=", "COLOR"="#1BA0E1", "WORKID"="A32020", "TITLE"="04-07", "SPACEID"="A31080", "TYPE"="1", "NAME"="历史"}, 
+				{"ADDDATE"="03/21", "TYPENAME"="课后作业", "ANID"="A31082", "COLOR"="#ED561B", "WORKID"="A32015", "TITLE"="多选题", "SPACEID"="A31091", "TYPE"="1", "NAME"="外语"}, 
+				{"ADDDATE"="03/21", "TYPENAME"="课后作业", "ANID"="A31081", "COLOR"="#DDDF00", "WORKID"="A32014", "TITLE"="03-21", "SPACEID"="A31091", "TYPE"="1", "NAME"="外语"}, 
+				{"ADDDATE"="03/21", "TYPENAME"="课后作业", "ANID"="A31080", "COLOR"="#64E572", "WORKID"="A32011", "TITLE"="03-21", "SPACEID"="A31091", "TYPE"="1", "NAME"="外语"}]
+			</td>
+		</tr>
+	</table>
+	<table border="1" style="margin:20px;width:900px;" class="api_table" id="homework_rep">
+		<tr>
+			<th style="text-align:center;" colspan="2">作业提交</th>
+		</tr>
+		<tr>
+			<th style="width:160px;">post接口地址</th>
+			<td>/service/post/homeworkPost.jsp</td>
+		</tr>
+		<tr>
+			<th style="width:160px;">传入参数</th>
+			<td>
+				id 作业ID<br/>
+				answer 答案数组{"submit"=true, "dataList"=[{"id"="题目ID", "type"="1=图片,2=录音", "value"="答案"},{"id"="题目ID", "type"="1=图片,2=录音", "value"="答案"}]}<br/>
+			</td>
+		</tr>
+		<tr>
+			<th>返回JSON对象参数</th>
+			<td>
+				list 列表内容（结构参照上面数据demo）<br/>
+				code 页面状态 200 或者 404<br/>
+				message 出错信息<br/>
+		 	</td>
+		</tr>
+	</table>
+	
+	<table border="1" style="margin:20px;width:900px;" class="api_table" id="exam_list">
+		<tr>
+			<th style="text-align:center;" colspan="2">成绩列表</th>
+		</tr>
+		<tr>
+			<th style="width:160px;">ajax接口地址</th>
+			<td>/service/ajax/resultsAjax.jsp</td>
+		</tr>
+		<tr>
+			<th>Ajax返回JSON对象参数</th>
+			<td>
+				list 列表内容（结构参照下面数据demo）<br/>
+				code 页面状态 200 或者 404<br/>
+				updateTime （下拉刷新时才有）<br/>
+		 	</td>
+		</tr>
+		<tr>
+			<th style="width:160px;">参数介绍</th>
+			<td>
+				IS_READ 已读标志<br/>
+		 		EXAM_TIME 考试时间<br/>
+		 		EXAM_NAME 考试名称<br/>
+		 		ID 考试ID
+		 	</td>
+		</tr>
+		<tr>
+			<th>数据demo</th>
+			<td>
+				[{"IS_READ"="0", "EXAM_TIME"="2015-08-20 00:00:00", "EXAM_NAME"="期中测试", "ID"="A30943"}, 
+				{"IS_READ"="0", "EXAM_TIME"="2015-08-12 00:00:00", "EXAM_NAME"="yola测", "ID"="A30940"}, 
+				{"IS_READ"="0", "EXAM_TIME"="2015-07-31 00:00:00", "EXAM_NAME"="14学年2学期月考", "ID"="A30901"}, 
+				{"IS_READ"="0", "EXAM_TIME"="2015-06-14 00:00:00", "EXAM_NAME"="test", "ID"="A30939"}, 
+				{"IS_READ"="0", "EXAM_TIME"="2015-02-27 00:00:00", "EXAM_NAME"="期中考", "ID"="10502"}, 
+				{"IS_READ"="0", "EXAM_TIME"="2015-02-26 00:00:00", "EXAM_NAME"="摸底考试", "ID"="10501"}, 
+				{"IS_READ"="0", "EXAM_TIME"="2015-02-20 00:00:00", "EXAM_NAME"="14学年1学期期中考", "ID"="10390"}, 
+				{"IS_READ"="0", "EXAM_TIME"="2015-02-11 00:00:00", "EXAM_NAME"="14学年1学期期末考-3", "ID"="10420"}, 
+				{"IS_READ"="0", "EXAM_TIME"="2014-04-10 00:00:00", "EXAM_NAME"="13学年2学期月考-1", "ID"="10431"}, 
+				{"IS_READ"="0", "EXAM_TIME"="2013-08-14 00:00:00", "EXAM_NAME"="14学年1学期月考", "ID"="A30930"}]
+		 	</td>
+		</tr>
+	</table>
+	
+	<table border="1" style="margin:20px;width:900px;" class="api_table" id="space_list">
+		<tr>
+			<th style="text-align:center;" colspan="2">空间列表</th>
+		</tr>
+		<tr>
+			<th style="width:160px;">Ajax请求接口</th>
+			<td>ajax/spaceAjax.jsp</td>
+		</tr>
+		<tr>
+			<th>接口传入参数</th>
+			<td></td>
+		</tr>
+		<tr>
+			<th>返回JSON对象参数</th>
+			<td>
+				code 页面状态 200 或者 404<br/>
+				list 列表内容（结构参照下面介绍）<br/>
+				totalpage 总页数 <br/>
+		 	</td>
+		</tr>
+		<tr>
+			<th rowspan="2">list 列表内容<br/>参数介绍和数据demo</th>
+			<td>
+				SPACE_ID 空间ID<br/>
+				SPACE_TYPE 空间类型（1=班级空间=班 2=课程空间=课 3=教学空间=教 4=专项空间=专）<br/>
+		 		SPACE_NAME 空间名称<br/>
+		 		SPACE_ICON 空间头像地址（现阶段按照空间类型的关键字来前段样式填充）<br/>
+		 		NEWS_TITLE 最新动态标题<br/>
+		 		NEWS_FLAG 最新动态状态（1=已读 0=未读）<br/>
+		 		COLOR 空间图标方块颜色<br/>
+		 	</td>
+		</tr>
+		<tr>
+			<td>
+				[{"SPACE_ID"="10010", "SPACE_TYPE"=1, "SPACE_NAME"="一年级一班", "SPACE_ICON"="http://img1.imgtn.bdimg.com/it/u=2057087637,520718824&fm=21&gp=0.jpg", "NEWS_TITLE"="成功捕捉一枚", "NEWS_FLAG"=1}, 
+				{"SPACE_ID"="10011", "SPACE_TYPE"=1, "SPACE_NAME"="一年级二班", "SPACE_ICON"="http://tupian.enterdesk.com/2012/0828/cyf/04/enter%20%2811%29.jpg", "NEWS_TITLE"="春游记录", "NEWS_FLAG"=1}, 
+				{"SPACE_ID"="10012", "SPACE_TYPE"=2, "SPACE_NAME"="红领巾失物招领", "SPACE_ICON"="http://img4.imgtn.bdimg.com/it/u=4228314828,979467632&fm=21&gp=0.jpg", "NEWS_TITLE"="捡到一个笔记本", "NEWS_FLAG"=0}, 
+				{"SPACE_ID"="10013", "SPACE_TYPE"=3, "SPACE_NAME"="乒乓球", "SPACE_ICON"="http://img2.imgtn.bdimg.com/it/u=2925982100,4174239634&fm=21&gp=0.jpg", "NEWS_TITLE"="大赛风采", "NEWS_FLAG"=1}, 
+				{"SPACE_ID"="10014", "SPACE_TYPE"=4, "SPACE_NAME"="乒乓球", "SPACE_ICON"="http://img2.imgtn.bdimg.com/it/u=2925982100,4174239634&fm=21&gp=0.jpg", "NEWS_TITLE"="大赛风采", "NEWS_FLAG"=0}]
+		 	</td>
+		</tr>
+	</table>
+	<table border="1" style="margin:20px;width:900px;" class="api_table" id="space_topiclist">
+		<tr>
+			<th style="text-align:center;" colspan="2">空间帖子列表 </th>
+		</tr>
+		<tr>
+			<th style="width:160px;">Ajax请求接口</th>
+			<td>ajax/spaceTopicAjax.jsp</td>
+		</tr>
+		<tr>
+			<th>接口传入参数</th>
+			<td>
+				SPACE_ID 空间ID
+		 	</td>
+		</tr>
+		<tr>
+			<th>返回JSON对象参数</th>
+			<td>
+				code 页面状态 200 或者 404<br/>
+				updateTime （下拉刷新时才有）<br/>
+				totalpage 总页数 <br/>
+				list 列表内容（结构参照下面介绍）<br/>
+				news 新消息提醒（一个JSON数组）（结构参照下面介绍）<br/>
+		 	</td>
+		</tr>
+		<tr>
+			<th rowspan="2">list 列表内容<br/>参数介绍和数据demo</th>
+			<td>
+				TOPIC_ID 帖子ID<br/>
+				USER_ID 发帖人ID<br/>
+		 		USER_NAME 发帖人名称<br/>
+		 		USER_ICON 发帖人头像<br/>
+		 		CONTENT 帖子内容<br/>
+		 		IMG_LIST 帖子配图<br/>
+		 		EDIT_FLAG 管理权限标志（1=有权限 0=无权限 此处的管理权限只包括 删除帖子 删除评论）<br/>
+		 		LIKE_FLAG 已赞标志（1=已赞 0=未赞）<br/>
+		 		LIKE_LIST 点赞列表<br/>
+		 		COMMENT_LIST 回复列表<br/>
+		 		PUB_TIME 发表时间<br/>
+		 		LINK_URL 帖子详情链接地址<br/>
+		 	</td>
+		</tr>
+		<tr>
+			<td>
+				[{"TOPIC_ID"="10010", "USER_ID"="10067", "USER_NAME"="孙天鹅", "USER_ICON"="http://img1.imgtn.bdimg.com/it/u=2057087637,520718824&fm=21&gp=0.jpg", 
+					"CONTENT"="神奇宝贝特别篇（ポケットモンスター☆SPECIAL）是由日下秀宪作脚本，真斗和山本智作画的漫画作品。系列原作日下秀宪，其前九册由真斗作画。
+					后真斗因病而不能继续参与创作，山本智接手系列的作画工作，此后一直持续。目前最新章节是“X·Y篇”。
+					全部章节加起来已经连载了500回以上。", 
+					"IMG_LIST"=["http://img2.imgtn.bdimg.com/it/u=2925982100,4174239634&fm=21&gp=0.jpg", 
+					"http://tupian.enterdesk.com/2012/0828/cyf/04/enter%20%2811%29.jpg", 
+					"http://img1.imgtn.bdimg.com/it/u=2057087637,520718824&fm=21&gp=0.jpg"], 
+					"LIKE_FLAG"=1, "EDIT_FLAG"=1, "LIKE_LIST"=[
+						{"USER_ID":"10067", "USER_NAME":"孙天鹅", "USER_ICON":"http://tupian.enterdesk.com/2012/0828/cyf/04/enter%20%2811%29.jpg"}, 
+						{"USER_ID":"10087", "USER_NAME":"孙悟空", "USER_ICON":"http://img2.imgtn.bdimg.com/it/u=2925982100,4174239634&fm=21&gp=0.jpg"}
+						], "COMMENT_LIST"=[
+							{"COMMENT_ID"="21301", "USER_ID":"10067", "USER_NAME":"孙天鹅", "TO_USER_ID":"", "TO_USER_NAME":"", "CONTENT":"请叫我点赞狂魔"}, 
+							{"COMMENT_ID"="21321", "USER_ID":"10087", "USER_NAME":"孙悟空", "TO_USER_ID":"10067", "TO_USER_NAME":"孙天鹅", "CONTENT":"混蛋还我沙发"}
+						], "PUB_TIME"="45分钟前", "LINK_URL"="detail.html?spaceId=10011&topicId=10010" 
+				}, {"TOPIC_ID"="10011", "USER_ID":"10087", "USER_NAME"="孙悟空", "USER_ICON"="http://img2.imgtn.bdimg.com/it/u=2925982100,4174239634&fm=21&gp=0.jpg", 
+					"CONTENT"="", 
+					"IMG_LIST"=["http://img2.imgtn.bdimg.com/it/u=2925982100,4174239634&fm=21&gp=0.jpg", 
+					"http://img2.imgtn.bdimg.com/it/u=2925982100,4174239634&fm=21&gp=0.jpg", 
+					"http://img2.imgtn.bdimg.com/it/u=2925982100,4174239634&fm=21&gp=0.jpg", 
+					"http://img2.imgtn.bdimg.com/it/u=2925982100,4174239634&fm=21&gp=0.jpg", 
+					"http://img2.imgtn.bdimg.com/it/u=2925982100,4174239634&fm=21&gp=0.jpg", 
+					"http://img2.imgtn.bdimg.com/it/u=2925982100,4174239634&fm=21&gp=0.jpg", 
+					"http://img2.imgtn.bdimg.com/it/u=2925982100,4174239634&fm=21&gp=0.jpg", 
+					"http://img2.imgtn.bdimg.com/it/u=2925982100,4174239634&fm=21&gp=0.jpg", 
+					"http://img2.imgtn.bdimg.com/it/u=2925982100,4174239634&fm=21&gp=0.jpg"], 
+					"LIKE_FLAG"=0, "EDIT_FLAG"=0, "LIKE_LIST"=[], "COMMENT_LIST"=[], "PUB_TIME"="1小时前", 
+					"LINK_URL"="detail.html?spaceId=10011&topicId=10011" 
+				}
+		 	</td>
+		</tr>
+		<tr>
+			<th rowspan="2">news 新消息提醒<br/>参数介绍和数据demo</th>
+			<td>
+				TYPE 消息提醒类型 （LIKE=点赞 COMMENT=评论）<br/>
+				TOPIC_ID 帖子ID<br/>
+				USER_ID 用户ID<br/>
+				USER_NAME 用户姓名<br/>
+				USER_ICON 用户头像<br/>
+				CONTENT 评论内容<br/>
+				LINK_URL 帖子详情链接地址<br/>
+		 	</td>
+		</tr>
+		<tr>
+			<td>
+				[{TYPE="LIKE", "TOPIC_ID"="10010", "USER_ID":"10067", "USER_NAME":"孙天鹅", 
+						"USER_ICON":"http://tupian.enterdesk.com/2012/0828/cyf/04/enter%20%2811%29.jpg", "LINK_URL"="detail.html?spaceId=10011&topicId=10011"}, 
+				{TYPE="LIKE", "TOPIC_ID"="10010", "USER_ID":"10087", "USER_NAME":"孙悟空", 
+						"USER_ICON":"http://img2.imgtn.bdimg.com/it/u=2925982100,4174239634&fm=21&gp=0.jpg", "LINK_URL"="detail.html?spaceId=10011&topicId=10011" }, 
+				{TYPE="COMMENT", "TOPIC_ID"="10010", "USER_ID":"10067", "USER_NAME":"孙天鹅", 
+						"USER_ICON":"http://img2.imgtn.bdimg.com/it/u=2925982100,4174239634&fm=21&gp=0.jpg", "CONTENT":"请叫我点赞狂魔", "LINK_URL"="detail.html?spaceId=10011&topicId=10011" }]
+		 	</td>
+		</tr>
+	</table>
+	<table border="1" style="margin:20px;width:900px;" class="api_table" id="topic_zan">
+		<tr>
+			<th style="text-align:center;" colspan="2">点赞／取消点赞 </th>
+		</tr>
+		<tr>
+			<th style="width:160px;">post请求接口</th>
+			<td>/weixin/service/post/likePost.jsp</td>
+		</tr>
+		<tr>
+			<th>接口传入参数</th>
+			<td>
+				TOPIC_ID 帖子ID
+		 	</td>
+		</tr>
+		<tr>
+			<th>返回JSON对象参数</th>
+			<td>
+				code 页面状态 200 或者 404<br/>
+				message 操作提示信息<br/>
+				user_info 操作用户信息 {"USER_ID":"10067", "USER_NAME":"孙天鹅", "USER_ICON":"http://tupian.enterdesk.com/2012/0828/cyf/04/enter%20%2811%29.jpg"}<br/>
+		 	</td>
+		</tr>
+	</table>
+	<table border="1" style="margin:20px;width:900px;" class="api_table" id="topic_rep">
+		<tr>
+			<th style="text-align:center;" colspan="2">发表评论 </th>
+		</tr>
+		<tr>
+			<th style="width:160px;">post请求接口</th>
+			<td>/weixin/service/post/topicCommentPost.jsp</td>
+		</tr>
+		<tr>
+			<th>接口传入参数</th>
+			<td>
+				TOPIC_ID 帖子ID<br/>
+				COMMENT_ID 指定的评论ID（为空时表示1级评论）<br/>
+				CONTENT 评论内容<br/>
+		 	</td>
+		</tr>
+		<tr>
+			<th>返回JSON对象参数</th>
+			<td>
+				code 页面状态 200 或者 404<br/>
+				message 操作提示信息<br/>
+				comment_id 评论ID<br/>
+				content 评论内容<br/>
+		 	</td>
+		</tr>
+	</table>
+	<table border="1" style="margin:20px;width:900px;" class="api_table" id="topic_add">
+		<tr>
+			<th style="text-align:center;" colspan="2">发帖</th>
+		</tr>
+		<tr>
+			<th style="width:160px;">post请求接口</th>
+			<td>/weixin/service/post/topicPost.jsp</td>
+		</tr>
+		<tr>
+			<th>接口传入参数</th>
+			<td>
+				SPACE_ID 空间ID<br/>
+				CONTENT 发帖内容<br/>
+				IMG_LIST 发帖配图（字符串数组，如：["http://img2.imgtn.bdimg.com/it/u=2925982100,4174239634&fm=21&gp=0.jpg", 
+					"http://img2.imgtn.bdimg.com/it/u=2925982100,4174239634&fm=21&gp=0.jpg", 
+					"http://img2.imgtn.bdimg.com/it/u=2925982100,4174239634&fm=21&gp=0.jpg"]）<br/>
+		 	</td>
+		</tr>
+		<tr>
+			<th>返回JSON对象参数</th>
+			<td>
+				code 页面状态 200 或者 404<br/>
+				message 操作提示信息<br/>
+		 	</td>
+		</tr>
+	</table>
+	
+	<table border="1" style="margin:20px;width:900px;" class="api_table" id="repair_dept_list">
+		<tr>
+			<th style="text-align:center;" colspan="2">报修处理列表</th>
+		</tr>
+		<tr>
+			<th style="width:160px;">Ajax请求接口</th>
+			<td>/service/ajax/repair/listAjax.jsp</td>
+		</tr>
+		<tr>
+			<th>接口传入参数</th>
+			<td>
+				status 指定的状态代码（所有状态不传）
+				page 指定的查询页数
+		 	</td>
+		</tr>
+		<tr>
+			<th>返回JSON对象参数</th>
+			<td>
+				message 返回状态信息<br/>
+				code 状态代码 200=成功、204=无记录、404=查询失败<br/>
+				totalpage 记录总页数 <br/>
+				list 列表内容（结构参照下面介绍）<br/>
+		 	</td>
+		</tr>
+		<tr>
+			<th rowspan="2">list 列表内容<br/>参数介绍和数据demo</th>
+			<td>
+				id<br/>
+				title 报修标题<br/>
+		 		addDate 报修时间<br/>
+		 		deptName 部门名称<br/>
+		 		status 报修状态 201=需受理、202=需完工、203=需确认、204=已评星<br/>
+		 		score 评价得分<br/>
+		 		redStatus 红点状态 1=有红点 0=无红点<br/>
+		 	</td>
+		</tr>
+		<tr>
+			<td>
+				{"message":"报修处理列表加载成功",
+					"code":200,"list":[
+						{"id":"A31340","title":"22222222","addDate":"03-22","deptName":"北校总务处","status":"201","score":0,"redStatus":0},
+						{"id":"A31330","title":"教室门坏了","addDate":"09-06","deptName":"总务处","status":"202","score":0,"redStatus":0},
+						{"id":"A31320","title":"11","addDate":"08-04","deptName":"北校总务处","status":"204","score":5,"redStatus":0},
+						{"id":"A31310","title":"测试保修8月3日","addDate":"08-03","deptName":"总务处","status":"202","score":0,"redStatus":0},
+						{"id":"A31301","title":"3确认特工","addDate":"08-03","deptName":"总务处","status":"202","score":0,"redStatus":0},
+						{"id":"A31300","title":"12","addDate":"08-03","deptName":"北校总务处","status":"202","score":0,"redStatus":0},
+						{"id":"A31290","title":"阿斯顿撒旦","addDate":"07-21","deptName":"总务处","status":"202","score":0,"redStatus":0},
+						{"id":"A31280","title":"12","addDate":"07-21","deptName":"北校总务处","status":"204","score":5,"redStatus":0},
+						{"id":"A31271","title":"1111","addDate":"07-20","deptName":"总务处","status":"204","score":5,"redStatus":0},
+						{"id":"A31270","title":"孩子的书桌坏了","addDate":"07-20","deptName":"北校总务处","status":"202","score":0,"redStatus":0},
+						{"id":"A31260","title":"test","addDate":"07-14","deptName":"总务处","status":"204","score":5,"redStatus":0},
+						{"id":"A31250","title":"噫","addDate":"05-04","deptName":"北校总务处","status":"204","score":5,"redStatus":0},
+						{"id":"A31240","title":"111111","addDate":"03-31","deptName":"北校总务处","status":"204","score":5,"redStatus":0},
+						{"id":"A31230","title":"asdfasdfsdf","addDate":"03-30","deptName":"北校总务处","status":"202","score":0,"redStatus":0},
+						{"id":"A31220","title":"423","addDate":"03-01","deptName":"南校信息处","status":"202","score":0,"redStatus":0},
+						{"id":"A31210","title":"2133213123","addDate":"01-04","deptName":"北校总务处","status":"204","score":5,"redStatus":0},
+						{"id":"A31201","title":"435","addDate":"12-30","deptName":"南校总务处","status":"201","score":0,"redStatus":0},
+						{"id":"A30682","title":"窗户保修","addDate":"08-19","deptName":"总务处","status":"204","score":5,"redStatus":0},
+						{"id":"A30681","title":"热外围热热","addDate":"08-19","deptName":"总务处","status":"204","score":5,"redStatus":0},
+						{"id":"A30680","title":"旁边穿拖鞋","addDate":"08-19","deptName":"总务处","status":"204","score":5,"redStatus":0}
+					],"totalpage":2}
+		 	</td>
+		</tr>
+	</table>
+	
+	<table border="1" style="margin:20px;width:900px;" class="api_table" id="repair_status">
+		<tr>
+			<th style="width:160px;">报修状态说明</th>
+			<td>
+				101=待受理<br/>
+				102=维修中<br/>
+				103=需确认<br/>
+				104=已评星（已评星直接显示评星详情）<br/>
+				201=需受理<br/>
+				202=需完工<br/>
+				203=需确认<br/>
+				204=已评星（已评星直接显示评星详情）<br/>
+		 	</td>
+		</tr>
+	</table>
+	
+	<table border="1" style="margin:20px;width:900px;" class="api_table" id="repair_my_list">
+		<tr>
+			<th style="text-align:center;" colspan="2">报修-列表</th>
+		</tr>
+		<tr>
+			<th style="width:160px;">Ajax请求接口</th>
+			<td>/service/ajax/repair/listAjax.jsp</td>
+		</tr>
+		<tr>
+			<th>接口传入参数</th>
+			<td>
+				page 指定的查询页数<br/>
+				status 指定的报修状态 空或不指定=全部<br/>
+				listType 2=报修处理列表 1=报修列表<br/>
+		 	</td>
+		</tr>
+		<tr>
+			<th>返回JSON对象参数</th>
+			<td>
+				message 返回状态信息<br/>
+				code 状态代码 200=成功、204=无记录、404=查询失败<br/>
+				totalpage 记录总页数 <br/>
+				list 列表内容（结构参照下面介绍）<br/>
+		 	</td>
+		</tr>
+		<tr>
+			<th rowspan="2">list 列表内容<br/>参数介绍和数据demo</th>
+			<td>
+				id<br/>
+				title 报修标题<br/>
+		 		addDate 报修时间<br/>
+		 		deptName 部门名称<br/>
+		 		status 报修状态 101=待受理、102=维修中、103=需确认、104=已评星；201=需受理、202=需完工、203=需确认、204=已评星<br/>
+		 		score 评价得分<br/>
+		 		redStatus 红点状态 1=有红点 0=无红点<br/>
+		 	</td>
+		</tr>
+		<tr>
+			<td>
+				{"message":"报修列表加载成功",
+					"code":200,"list":[
+						{"id":"C6zHp6SLMKgTzkgnhArMDA","title":"22222222","addDate":"03-22","deptName":"北校总务处","status":"101","score":0,"redStatus":0},
+						{"id":"0X6sAkqozgYTzkgnhArMDA","title":"教室门坏了","addDate":"09-06","deptName":"总务处","status":"102","score":0,"redStatus":0},
+						{"id":"3FPKQAfu-vkTzkgnhArMDA","title":"测试保修8月3日","addDate":"08-03","deptName":"总务处","status":"102","score":0,"redStatus":0},
+						{"id":"xBZfeIxz-MMTzkgnhArMDA","title":"3确认特工","addDate":"08-03","deptName":"总务处","status":"102","score":0,"redStatus":0},
+						{"id":"qo7PuJHCEJsTzkgnhArMDA","title":"111111","addDate":"03-31","deptName":"北校总务处","status":"104","score":5,"redStatus":0},
+						{"id":"LFw5Pg2g9ZQTzkgnhArMDA","title":"423","addDate":"03-01","deptName":"南校信息处","status":"102","score":0,"redStatus":0},
+						{"id":"3JQZbcVRS2QTzkgnhArMDA","title":"2133213123","addDate":"01-04","deptName":"北校总务处","status":"104","score":5,"redStatus":0},
+						{"id":"MMJcmtLS6-cTzkgnhArMDA","title":"435","addDate":"12-30","deptName":"南校总务处","status":"101","score":0,"redStatus":0},
+						{"id":"-LLT7-tDGgMTzkgnhArMDA","title":"243","addDate":"12-30","deptName":"北校信息处","status":"101","score":0,"redStatus":0},
+						{"id":"VZSWlvnUfl8TzkgnhArMDA","title":"窗户保修","addDate":"08-19","deptName":"总务处","status":"104","score":5,"redStatus":0},
+						{"id":"wS46GOjZKr8TzkgnhArMDA","title":"热外围热热","addDate":"08-19","deptName":"总务处","status":"104","score":5,"redStatus":0},
+						{"id":"QNAnQIZPj8oTzkgnhArMDA","title":"旁边穿拖鞋","addDate":"08-19","deptName":"总务处","status":"104","score":5,"redStatus":0},
+						{"id":"yyc2geGZrz0iONZZ2ZH5Mg","title":"2","addDate":"03-17","deptName":"北校总务处","status":"102","score":0,"redStatus":0},
+						{"id":"zugo0lhOpSoiONZZ2ZH5Mg","title":"1","addDate":"03-17","deptName":"北校总务处","status":"101","score":0,"redStatus":0},
+						{"id":"FVt0sHr0SKYiONZZ2ZH5Mg","title":"1","addDate":"03-13","deptName":"北校总务处","status":"104","score":5,"redStatus":0},
+						{"id":"1-IcLdsDGQAiONZZ2ZH5Mg","title":"1","addDate":"03-06","deptName":"北校总务处","status":"104","score":2,"redStatus":0},
+						{"id":"JnsPYExhUp8iONZZ2ZH5Mg","title":"555","addDate":"03-06","deptName":"北校总务处","status":"104","score":5,"redStatus":0},
+						{"id":"-Oi5iHtpNpYiONZZ2ZH5Mg","title":"1","addDate":"03-06","deptName":"北校总务处","status":"104","score":5,"redStatus":0},
+						{"id":"bt5y_zfSnxgiONZZ2ZH5Mg","title":"新报修","addDate":"03-06","deptName":"北校总务处","status":"104","score":5,"redStatus":0},
+						{"id":"XPh2FtPNPmgiONZZ2ZH5Mg","title":"1","addDate":"02-27","deptName":"北校总务处","status":"104","score":5,"redStatus":0}
+					],"totalpage":2}
+		 	</td>
+		</tr>
+	</table>
+	
+	<table border="1" style="margin:20px;width:900px;" class="api_table" id="repair_info">
+		<tr>
+			<th style="text-align:center;" colspan="2">报修详情</th>
+		</tr>
+		<tr>
+			<th style="width:160px;">Ajax请求接口</th>
+			<td>/service/ajax/repair/infoAjax.jsp</td>
+		</tr>
+		<tr>
+			<th>接口传入参数</th>
+			<td>
+				repairId 指定的报修ID
+		 	</td>
+		</tr>
+		<tr>
+			<th>返回JSON对象参数</th>
+			<td>
+				message 返回状态信息<br/>
+				code 状态代码 200=成功、404=查询失败<br/>
+				info 报修详情 JSON对象 {"CONTENT":"报修内容", "PLACE":"报修地点", "DEPTNAME":"报修对象", "PHONE":"联系电话", "IMG_LIST":["图片相对路径地址","","",""], 
+				"STATUS":"", "USERID":"报修人ID", "SCORE":"报修评分"}<br/>
+				rootPath 图片访问根目录<br/>
+				comments 回复/评论列表[{"COMMENTID":"回复ID", "USERID":"回复人ID", "USERNAME":"回复人姓名", "USERPIC":"回复人头像", "CONTENT":"回复内容", "FORMATDATE":"时间", 
+				"TO_USERNAME":"被回复人姓名(可以为空)", "IMG_LIST":["图片相对路径地址", "", ""]},
+				{"COMMENTID":"回复ID", "USERID":"回复人ID", "USERNAME":"回复人姓名", "USERPIC":"回复人头像", "CONTENT":"回复内容", "FORMATDATE":"时间", 
+				"TO_USERNAME":"被回复人姓名(可以为空)", "IMG_LIST":["图片相对路径地址", "", ""]}]
+		 	</td>
+		</tr>
+	</table>
+	
+	<table border="1" style="margin:20px;width:900px;" class="api_table" id="repair_add">
+		<tr>
+			<th style="text-align:center;" colspan="2">发起报修</th>
+		</tr>
+		<tr>
+			<th style="width:160px;">post请求接口</th>
+			<td>/weixin/service/post/topicPost.jsp</td>
+		</tr>
+		<tr>
+			<th>接口传入参数</th>
+			<td>
+				content 空间ID<br/>
+				place 报修地点<br/>
+				dept 指定部门代码<br/>
+				phone 电话<br/>
+				imgs 报修配图（微信上传图片mediaId字符串，以“,”分隔 如：127893iasdfbjkhsbviowdfkluhasdf,asdfkuhasdfkashdfkhaskdfhi,asdfjkhasdkfjvbuioawerfjkbh）<br/>
+		 	</td>
+		</tr>
+		<tr>
+			<th>返回JSON对象参数</th>
+			<td>
+				code 页面状态 200 或者 404<br/>
+				message 操作提示信息<br/>
+		 	</td>
+		</tr>
+	</table>
+	
+	<table border="1" style="margin:20px;width:900px;" class="api_table" id="repair_todo">
+		<tr>
+			<th style="width:160px;">报修受理</th>
+			<td>/weixin/service/post/repair/accept.jsp?repairId=报修ID</td>
+		</tr>
+		<tr>
+			<th style="width:160px;">报修确认</th>
+			<td>/weixin/service/post/repair/finish.jsp?repairId=报修ID</td>
+		</tr>
+		<tr>
+			<th style="width:160px;">报修评分</th>
+			<td>/weixin/service/post/repair/score.jsp?repairId=报修ID&score=分值12345</td>
+		</tr>
+		<tr>
+			<th>返回JSON对象参数</th>
+			<td>
+				code 页面状态 200 或者 404<br/>
+				message 操作提示信息<br/>
+		 	</td>
+		</tr>
+	</table>
+	
+	<table border="1" style="margin:20px;width:900px;" class="api_table" id="repair_comment">
+		<tr>
+			<th style="text-align:center;" colspan="2">报修留言/回复</th>
+		</tr>
+		<tr>
+			<th style="width:160px;">post请求接口</th>
+			<td>/weixin/service/post/repair/comment.jsp</td>
+		</tr>
+		<tr>
+			<th>接口传入参数</th>
+			<td>
+				repairId 报修ID<br/>
+				content 留言回复内容<br/>
+				toCommentId 回复的某条记录ID（可以为空，回复某人时传入）<br/>
+				imgs 回复留言配图（微信上传图片mediaId字符串，以“,”分隔 如：127893iasdfbjkhsbviowdfkluhasdf,asdfkuhasdfkashdfkhaskdfhi,asdfjkhasdkfjvbuioawerfjkbh）<br/>
+		 	</td>
+		</tr>
+		<tr>
+			<th>返回JSON对象参数</th>
+			<td>
+				code 页面状态 200 或者 404<br/>
+				message 操作提示信息<br/>
+		 	</td>
+		</tr>
+	</table>
+	
+	<table border="1" style="margin:20px;width:900px;" class="api_table" id="vote_list">
+		<tr>
+			<th style="text-align:center;" colspan="2">投票-列表</th>
+		</tr>
+		<tr>
+			<th style="width:160px;">Ajax请求接口</th>
+			<td>/service/ajax/vote/listAjax.jsp</td>
+		</tr>
+		<tr>
+			<th>接口传入参数</th>
+			<td>
+				page 指定的查询页数<br/>
+		 	</td>
+		</tr>
+		<tr>
+			<th>返回JSON对象参数</th>
+			<td>
+				message 返回状态信息<br/>
+				code 状态代码 200=成功、204=无记录、404=查询失败<br/>
+				totalpage 记录总页数 <br/>
+				list 列表内容（结构参照下面介绍）<br/>
+		 	</td>
+		</tr>
+		<tr>
+			<th rowspan="2">list 列表内容<br/>参数介绍和数据demo</th>
+			<td>
+				ID<br/>
+				TITLE 投票标题<br/>
+		 		OUTDATE 投票结束时间<br/>
+		 		DEPTNAME 部门名称<br/>
+		 		ANONYM_FLAG 是否匿名标志 1=匿名 0=不匿名<br/>
+		 		OVER_FLAG 投票过期标志 1=过期 0=未过期<br/>
+		 		ANSWER_FLAG 投票参与标志 1=已参与 0=未参与（OVER_FLAG=0，ANSWER_FLAG=0 未过期未参与投票要有红点）<br/>
+		 	</td>
+		</tr>
+		<tr>
+			<td>
+				{"message":"投票列表加载成功","code":200,"list":[
+					{"ANSWER_FLAG":"1","DEPTNAME":"校长室","TITLE":"asdfasdfasfasdfasdfasdfasdf","ID":"ZrKTdcIykV7dxP2LEfptJw","OUTDATE":"05-30","ANONYM_FLAG":"0","OVER_FLAG":"0"},
+					{"ANSWER_FLAG":"1","DEPTNAME":"校长室","TITLE":"托盘投票","ID":"0IFZ4rZiUEvdxP2LEfptJw","OUTDATE":"03-29","ANONYM_FLAG":"1","OVER_FLAG":"0"},
+					{"ANSWER_FLAG":"1","DEPTNAME":"校长室","TITLE":"123123123123","ID":"13diHeNxY97dxP2LEfptJw","OUTDATE":"12-22","ANONYM_FLAG":"1","OVER_FLAG":"0"}
+				],"totalpage":1}
+		 	</td>
+		</tr>
+	</table>
+	
+	<table border="1" style="margin:20px;width:900px;" class="api_table" id="vote_info">
+		<tr>
+			<th style="text-align:center;" colspan="2">投票-详情</th>
+		</tr>
+		<tr>
+			<th style="width:160px;">Ajax请求接口</th>
+			<td>/service/ajax/vote/infoAjax.jsp</td>
+		</tr>
+		<tr>
+			<th>接口传入参数</th>
+			<td>
+				voteId 指定投票ID<br/>
+		 	</td>
+		</tr>
+		<tr>
+			<th>返回JSON对象参数</th>
+			<td>
+				message 返回状态信息<br/>
+				code 状态代码 200=成功、404=查询失败<br/>
+				totalpage 记录总页数 <br/>
+				list 列表内容（结构参照下面介绍）<br/>
+				rootPath 图片根目录<br/>
+		 	</td>
+		</tr>
+		<tr>
+			<th rowspan="2">list 列表内容<br/>参数介绍和数据demo</th>
+			<td>
+				ID<br/>
+				TITLE 投票标题<br/>
+		 		OUTDATE 投票结束时间<br/>
+		 		DEPTNAME 部门名称<br/>
+		 		ANONYM_FLAG 是否匿名标志 1=匿名 0=不匿名<br/>
+		 		HIDE_FLAG 结果公示标志 1=不公示 0=公示<br/>
+		 		SUBJECTS 投票大题 参数介绍=[{"SID":"标题","SNO":"1（序号）","STITLE":"标题","SNUM":3（最多可选X项）,"SFILE":[](附件数组),
+							"SOPTIONS":[
+								{"OPTITLE":"选项标题","OPVALUE":"1（选项数值）","OPSELECT":false（是否已选中）,"OPFILE":[]（选项附件数组）}]<br/>
+		 	</td>
+		</tr>
+		<tr>
+			<td>
+				{"rootPath":"/lqtedu","message":"投票详情加载成功","code":200,
+					"info":{"DEPTNAME":"校长室","INTRINFO":"欢迎参加本次投票","TITLE":"史蒂夫噶三等功","OUTDATE":"06-28",
+					"ANONYM_FLAG":"1","HIDE_FLAG":"1","ID":"QU9Ob33IOLLmTHeER8qt9Q","SUBJECTS":[
+						{"SId":"AH_Ba0FPmTDmTHeER8qt9Q","SNO":"1","STITLE":"sad 发送到发送到发送地方","SNUM":3,"SFILE":[
+							{"ID":"l0EzTYv9G3zmTHeER8qt9Q","NAME":"户型图.jpg","TYPE":"1","URL":"/attachment/2017-06-26/fc59124b-51e7-45b3-8ad5-dd9c44021315.jpg"},
+							{"ID":"S5nNohsgmLrmTHeER8qt9Q","NAME":"户型图.jpg","TYPE":"1","URL":"/attachment/2017-06-26/4abcf870-fdf6-4736-8123-14db761e9f02.jpg"},
+							{"ID":"_5UOqNmI8f3mTHeER8qt9Q","NAME":"户型图.jpg","TYPE":"1","URL":"/attachment/2017-06-26/3b354d28-bf83-47b8-9274-cc1175541bf5.jpg"}],
+							"FOPTIONS":[
+								{"OPTITLE":"阿文水电费水电费","OPVALUE":"1","OPSELECT":false,"OPFILE":[]},
+								{"OPTITLE":"2222","OPVALUE":"2","OPSELECT":false,"OPFILE":[
+									{"ID":"0l9zhfPi7ermTHeER8qt9Q","NAME":"户型图.jpg","TYPE":"1","URL":"/attachment/2017-06-26/a56811be-a04e-4376-96d3-62b6f6e2d645.jpg"}]},
+								{"OPTITLE":"3333","OPVALUE":"3","OPSELECT":false,"OPFILE":[
+									{"ID":"EIzq83T1DhPmTHeER8qt9Q","NAME":"户型图.jpg","TYPE":"1","URL":"/attachment/2017-06-26/c8a66493-938a-4a50-88fd-ef73a6d50f86.jpg"},
+									{"ID":"n64eG5bgw7HmTHeER8qt9Q","NAME":"户型图.jpg","TYPE":"1","URL":"/attachment/2017-06-26/9e4b76a1-fa0c-4fac-8e23-1001b25f340e.jpg"}]},
+								{"OPTITLE":"3333333","OPVALUE":"4","OPSELECT":false,"OPFILE":[]}]}]}}
+		 	</td>
+		 </tr>
+	 	<tr>
+			<th>附件数组参数介绍</th>
+			<td>
+				ID 附件ID<br/>
+				NAME 附件名<br/>
+				TYPE 附件类型 1=图片、2=视频、3=音频、4=文件<br/>
+		 		URL 附件地址<br/>
+		 	</td>
+		</tr>
+	</table>
+	
+	<table border="1" style="margin:20px;width:900px;" class="api_table" id="vote_do">
+		<tr>
+			<th style="text-align:center;" colspan="2">提交投票</th>
+		</tr>
+		<tr>
+			<th style="width:160px;">post请求接口</th>
+			<td>/weixin/service/post/votePost.jsp</td>
+		</tr>
+		<tr>
+			<th>接口传入参数</th>
+			<td>
+				voteId 投票ID<br/>
+				answer 投票答案数组，例如：[{"subjectId":"投票大题ID", "value":"1,2,4（以“,”分隔的大题选项value）"},{"subjectId":"213123123", "value":"1,3,4"}]<br/>
+		 	</td>
+		</tr>
+		<tr>
+			<th>返回JSON对象参数</th>
+			<td>
+				code 页面状态 200 或者 404<br/>
+				message 操作提示信息<br/>
+		 	</td>
+		</tr>
+	</table>
+	
+	<table border="1" style="margin:20px;width:900px;" class="api_table" id="examen_list">
+		<tr>
+			<th style="text-align:center;" colspan="2">问卷-列表</th>
+		</tr>
+		<tr>
+			<th style="width:160px;">Ajax请求接口</th>
+			<td>/service/ajax/qa/listAjax.jsp</td>
+		</tr>
+		<tr>
+			<th>接口传入参数</th>
+			<td>
+				page 指定的查询页数<br/>
+		 	</td>
+		</tr>
+		<tr>
+			<th>返回JSON对象参数</th>
+			<td>
+				message 返回状态信息<br/>
+				code 状态代码 200=成功、204=无记录、404=查询失败<br/>
+				totalpage 记录总页数 <br/>
+				list 列表内容（结构参照下面介绍）<br/>
+		 	</td>
+		</tr>
+		<tr>
+			<th rowspan="2">list 列表内容<br/>参数介绍和数据demo</th>
+			<td>
+				ID<br/>
+				TITLE 问卷标题<br/>
+		 		OUTDATE 问卷结束时间<br/>
+		 		DEPTNAME 部门名称<br/>
+		 		ANONYM_FLAG 是否匿名标志 1=匿名 0=不匿名<br/>
+		 		OVER_FLAG 问卷过期标志 1=过期 0=未过期<br/>
+		 		ANSWER_FLAG 问卷参与标志 1=已参与 0=未参与（OVER_FLAG=0，ANSWER_FLAG=0 未过期未参与问卷要有红点）<br/>
+		 	</td>
+		</tr>
+		<tr>
+			<td>
+				{"message":"问卷列表加载成功","code":200,"list":[
+					{"ANSWER_FLAG":"1","DEPTNAME":"校长室","TITLE":"ujyf777rf7rf567464646","ID":"2FRJO2FlviDj6IziL--WBQ","OUTDATE":"06-01","ANONYM_FLAG":"0","OVER_FLAG":"0"},
+					{"ANSWER_FLAG":"1","DEPTNAME":"校长室","TITLE":"所有全体问卷","ID":"I1D7_RSLYvrj6IziL--WBQ","OUTDATE":"05-31","ANONYM_FLAG":"1","OVER_FLAG":"0"},
+					{"ANSWER_FLAG":"1","DEPTNAME":"校长室","TITLE":"所有全体问卷","ID":"wVQPkJe2UPPj6IziL--WBQ","OUTDATE":"05-29","ANONYM_FLAG":"1","OVER_FLAG":"0"},
+					{"ANSWER_FLAG":"1","DEPTNAME":"校长室","TITLE":"问答题问卷","ID":"ClQCP5gM7ezj6IziL--WBQ","OUTDATE":"04-26","ANONYM_FLAG":"1","OVER_FLAG":"0"},
+					{"ANSWER_FLAG":"0","DEPTNAME":"校长室","TITLE":"教师问卷","ID":"ZUQ19Lx16Tzj6IziL--WBQ","OUTDATE":"03-29","ANONYM_FLAG":"1","OVER_FLAG":"0"},
+					{"ANSWER_FLAG":"0","DEPTNAME":"校长室","TITLE":"大型问卷－003","ID":"ZRJtfubPr6nj6IziL--WBQ","OUTDATE":"10-16","ANONYM_FLAG":"0","OVER_FLAG":"0"},
+					{"ANSWER_FLAG":"1","DEPTNAME":"校长室","TITLE":"大型问卷－002","ID":"Iao4u5FBWSvj6IziL--WBQ","OUTDATE":"10-15","ANONYM_FLAG":"0","OVER_FLAG":"0"},
+					{"ANSWER_FLAG":"1","DEPTNAME":"校长室","TITLE":"普通问卷001","ID":"3MOdrv1tWP3j6IziL--WBQ","OUTDATE":"10-11","ANONYM_FLAG":"0","OVER_FLAG":"0"},
+					{"ANSWER_FLAG":"1","DEPTNAME":"校长室","TITLE":"老师","ID":"jQ0nWkQiXgPj6IziL--WBQ","OUTDATE":"09-29","ANONYM_FLAG":"0","OVER_FLAG":"0"}
+					],"totalpage":1}
+		 	</td>
+		</tr>
+	</table>
+	
+	<table border="1" style="margin:20px;width:900px;" class="api_table" id="examen_info">
+		<tr>
+			<th style="text-align:center;" colspan="2">问卷-详情</th>
+		</tr>
+		<tr>
+			<th style="width:160px;">Ajax请求接口</th>
+			<td>/service/ajax/qa/infoAjax.jsp</td>
+		</tr>
+		<tr>
+			<th>接口传入参数</th>
+			<td>
+				qid 指定问卷ID<br/>
+		 	</td>
+		</tr>
+		<tr>
+			<th>返回JSON对象参数</th>
+			<td>
+				message 返回状态信息<br/>
+				code 状态代码 200=成功、404=查询失败<br/>
+				totalpage 记录总页数 <br/>
+				list 列表内容（结构参照下面介绍）<br/>
+				rootPath 图片根目录<br/>
+		 	</td>
+		</tr>
+		<tr>
+			<th rowspan="2">list 列表内容<br/>参数介绍和数据demo</th>
+			<td>
+				ID<br/>
+				TITLE 问卷标题<br/>
+		 		OUTDATE 投票截止时间<br/>
+		 		INTRINFO 问卷前言<br/>
+		 		DEPTNAME 部门名称<br/>
+		 		PUBLISHDATE 问卷发布时间<br/>
+		 		ENDINTRINFO 问卷结语<br/>
+		 		ANONYM_FLAG 是否匿名标志 1=匿名 0=不匿名<br/>
+		 		HIDE_FLAG 结果公示标志 1=不公示 0=公示<br/>
+		 		QUESTIONS 问卷题目列表 参数介绍=[{"QID":"题目ID","QTITLE":"标题","QTYPE":"问卷类型（1=单选题、2=多选题、3=问答题、4=打分题）","QVALUE":"用户答案",
+							"QOPTIONS":[{"OPTITLE":"选项标题","OPVALUE":"选项值","OPSELECT":false（用户是否选中标志）,"OPOTHERFLAG":false（其他选项标志）,"OPOTHERVALUE":"用户其他选项答案"}]<br/>
+		 	</td>
+		</tr>
+		<tr>
+			<td>
+				{"message":"问卷详情加载成功","code":200,"info":
+					{"DEPTNAME":"校长室","PUBLISHDATE":"2017/06/27","ENDINTRINFO":"谢谢你的认真答卷","INTRINFO":"欢迎参加本次问卷",
+					"TITLE":"全部题型问卷","OUTDATE":"2017/07/08","ANONYM_FLAG":"1","HIDE_FLAG":"0","ID":"2IvYsJ1UGRH9i4KFWaiuSQ",
+					"QUESTIONS":[
+						{"QID":"A33300","QTITLE":"这是一个单选题","QTYPE":"1","QVALUE":"","QOPTIONS":[
+							{"OPTITLE":"选项1","OPVALUE":"A","OPSELECT":false,"OPOTHERFLAG":false,"OPOTHERVALUE":""},
+							{"OPTITLE":"选项2","OPVALUE":"B","OPSELECT":false,"OPOTHERFLAG":false,"OPOTHERVALUE":""},
+							{"OPTITLE":"选项3","OPVALUE":"C","OPSELECT":false,"OPOTHERFLAG":false,"OPOTHERVALUE":""},
+							{"OPTITLE":"选项4","OPVALUE":"D","OPSELECT":false,"OPOTHERFLAG":false,"OPOTHERVALUE":""}]},
+						{"QID":"A33301","QTITLE":"多选题","QTYPE":"2","QVALUE":"","QOPTIONS":[
+							{"OPTITLE":"多选题选项1","OPVALUE":"A","OPSELECT":false,"OPOTHERFLAG":false,"OPOTHERVALUE":""},
+							{"OPTITLE":"多选题选项2","OPVALUE":"B","OPSELECT":false,"OPOTHERFLAG":false,"OPOTHERVALUE":""},
+							{"OPTITLE":"多选题选项3","OPVALUE":"C","OPSELECT":false,"OPOTHERFLAG":false,"OPOTHERVALUE":""},
+							{"OPTITLE":"多选题选项4","OPVALUE":"D","OPSELECT":false,"OPOTHERFLAG":false,"OPOTHERVALUE":""},
+							{"OPTITLE":"其他情况，请留言说明","OPVALUE":"E","OPSELECT":false,"OPOTHERFLAG":true,"OPOTHERVALUE":""}]},
+						{"QID":"A33302","QTITLE":"这是一个问答题","QTYPE":"3","QVALUE":"","QOPTIONS":[]},
+						{"QID":"A33303","QTITLE":"这是一个打分题 1星最低，2星最高。","QTYPE":"4","QVALUE":"","QOPTIONS":[]}]}}
+		 	</td>
+		 </tr>
+	</table>
+	
+	<table border="1" style="margin:20px;width:900px;" class="api_table" id="examen_do">
+		<tr>
+			<th style="text-align:center;" colspan="2">提交问卷</th>
+		</tr>
+		<tr>
+			<th style="width:160px;">post请求接口</th>
+			<td>/weixin/service/post/qaPost.jsp</td>
+		</tr>
+		<tr>
+			<th>接口传入参数</th>
+			<td>
+				qid 问卷ID<br/>
+				answer 问卷答案数组，例如：[{"questionId":"问卷大题ID", "value":"1,2,4（单选题、问答题、打分题直接填答案，多选题以“,”分隔的选项值）", "otherValue":"多选题的其他项的补充答案"}]<br/>
+		 	</td>
+		</tr>
+		<tr>
+			<th>返回JSON对象参数</th>
+			<td>
+				code 页面状态 200 或者 404<br/>
+				message 操作提示信息<br/>
+		 	</td>
+		</tr>
+	</table>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<table border="1" style="margin:20px;width:900px;" class="api_table" id="admin_user">
+		<tr>
+			<th style="text-align:center;" colspan="2">获取用户信息接口（现在主要是家长）</th>
+		</tr>
+		<tr>
+			<th style="width:160px;">接口地址</th>
+			<td>
+				com.util.PersonUtils
+		 	</td>
+		</tr>
+		<tr>
+			<th>传入参数</th>
+			<td>
+				USER_TYPE 操作用户ID<br/>
+				USERID 密钥<br/>
+				PAR_STU_ID 要查询的用户ID<br/>
+		 	</td>
+		</tr>
+		<tr>
+			<th>返回com.util.Person对象</th>
+			<td>
+				id 用户ID<br/>
+				name 用户名字<br/>
+				pic 用户头像<br/>
+				type 称谓（同学／老师／家长称谓）<br/>
+		 	</td>
+		</tr>
+	</table>
+</body>
+</html>

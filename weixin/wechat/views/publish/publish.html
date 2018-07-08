@@ -1,0 +1,34 @@
+<!DOCTYPE HTML5>
+<html>
+  <head>
+  	<meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, width=device-width">
+    <title>发布</title>
+    <link href="../../public/css/publish/publish.css" rel="stylesheet" />
+  </head>
+  <body>
+  	<div id="publish">
+  		<p class="block textarea"><textarea id="content" placeholder="说点什么..."></textarea></p>
+  		<div class="block">
+  			<ul class="clearfix" id="preview-list">
+  				<li class="it add"><p><a id="addpic" href="javascript:void(0)"></a></p></li>
+  			</ul>
+  		</div>
+  		<p class="publish-btn"><a class="btn" id="button-close" href="javascript:void(0)">取消</a><a class="btn" id="button-confirm" href="javascript:void(0)">发送</a></p>
+  	<script>
+  		var g_config = {
+  			pageType: 'publish',
+  			SPACE_ID: 1,//埋一下id,
+  			wx: {
+  				appId: 'wx2e3a10f99ee1c75e',
+  				timestamp: '', // 必填，生成签名的时间戳
+			    nonceStr: '', // 必填，生成签名的随机串
+			    signature: '',// 必填，签名
+  			}
+  		};
+  	</script>
+	<script src="../../public/js/lib/seajs/seajs/2.3.0/sea.js"></script>
+	<script src="../../public/js/config/lqt.js"></script>
+	<script>seajs.use("../../public/js/publish/publish.js");</script>
+  </body>
+</html>

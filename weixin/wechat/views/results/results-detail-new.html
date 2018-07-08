@@ -1,0 +1,183 @@
+<!DOCTYPE HTML5>
+<html>
+  <head>
+  	<meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, width=device-width">
+    <title>成绩分析</title>
+    <link href="../../public/css/results/detail.css" rel="stylesheet" />
+  </head>
+  <body>
+  	<a class="a-back" href="index.html">返回成绩</a>
+  	<nav id="nav">
+  		<ul class="clearfix">
+  			<li><a href="">语文</a></li>
+  			<li><a href="">数学</a></li>
+  			<li class="active"><a href="">物理</a></li>
+  			<li class="bg" style="left:<%=bgLeft %>%"></li>
+  		</ul>
+  	</nav>
+  	<div class="lqt-wrapper" id="new">
+		<div class="detail-container">
+			<div id="viewFirst" style="height:80%;width:100%;">sss</div>
+		</div>
+	</div>
+	<script src="../../public/js/lib/jquery/jquery-1.9.1.min.js"></script>
+	<script src="../../public/js/lib/highcharts/adapters/standalone-framework.js"></script>
+    <script src="../../public/js/lib/highcharts/highcharts.js"></script>
+    <script src="../../public/js/lib/highcharts/highcharts-more.js"></script>
+    <script>
+		$(function(){
+			var $nav = $('#nav'),
+				$li = $nav.find('li');
+			var _len = $nav.find('li').length;
+			$nav.find('ul').width($li.width()*(_len-1));
+			$nav.show();
+			console.log($nav.find('li.active').position().left)
+			$('#nav').scrollLeft($nav.find('li.active').position().left);
+			$nav.find('.bg').css('left', $li.width()*$nav.find('li.active').index());
+		});
+//  	var coursename = "<%=courseName %>";
+//  	var score = <%=chartData.getJSONObject("score").toString() %>;
+//  	var template = <%=chartData.getJSONArray("template").toString() %>;
+// 		var initChart = function (score, template, coursename){
+//			//trace(score);trace(template);
+//			var colors = ["#50B432", "#058DC7", "#DDDF00", "#ED561B"];
+//			var viewFirst = {
+//				"name":"<%=chartData.getString("examName") %><%if("T_PARENT".equals(user.getUserType())){%>（<%=user.getStudentName() %>）<%}%>"+" "+coursename,
+//				"subname":"科目综合评价 "+score["CLASS_NAME"]+score["STU_NAME"],
+//				"categories":[],
+//				"series":{
+//		        	name: "大版块详情",
+//		            data: [],
+//		            color: "#ED561B"
+//		        }
+//			}
+//			for(var i=0; i<template.length; i++){
+//				var dt = template[i];
+//				var dtCode = dt["CODE"];
+//				var dtName = dt["NAME"];
+//				var dtScore = score[dtCode+"_SCORE"];
+//				var dtLevel = score[dtCode];
+//				var dtLevelName = score[dtCode+"_NAME"];
+//				var xtArray = dt["XIAOTI"];
+//				viewFirst["categories"][i] = "【"+dtName+"】"+dtLevelName;
+//				var drill = {
+//		            "name":viewFirst["name"]+"-【"+dtName+"】版块",
+//		            "subname":viewFirst["subname"],
+//		            "categories": [],
+//		            "series":{
+//			        	name: "",
+//			            data: [],
+//			            color: "#ED561B"
+//			        }
+//	           	}
+//				for(var j=0; j<xtArray.length; j++){
+//					var xt=xtArray[j];
+//					var xtCode = xt["CODE"];
+//					var xtName = xt["NAME"];
+//					var xtScore = score[dtCode+"_"+xtCode+"_SCORE"];
+//					var xtLevel = score[dtCode+"_"+xtCode];
+//					var xtLevelName = score[dtCode+"_"+xtCode+"_NAME"];
+//					drill["categories"][j] = "【"+dtName+"】-"+xtName+" "+xtLevelName;
+//					drill["series"]["name"] = "【"+dtName+"】-子版块详情";
+//					drill["series"]["data"][j] = {
+//						y: xtScore,
+//						color: colors[xtLevel-1]
+//					}
+//				}
+//				drill["categories"][xtArray.length] = "【"+dtName+"】-总评 "+dtLevelName;
+//				drill["series"]["data"][xtArray.length] = {
+//					y: dtScore,
+//					color: colors[dtLevel-1]
+//				};
+//				viewFirst["series"]["data"][i] = {
+//					y: dtScore,
+//					color: colors[dtLevel-1],
+//					drilldown: drill
+//				};
+//			}
+//			if(score["ZONG"]){
+//				viewFirst["categories"][template.length] = "科目总评 "+score["ZONG_NAME"];
+//				viewFirst["series"]["data"][template.length] = {
+//					y: score["ZONG_SCORE"],
+//					color: colors[score["ZONG"]-1]
+//				}
+//			}
+//			//点击切换图
+//			var setChart = function (name, subname, categories, series){
+//				firstChart.setTitle({"text":name}, {"text":subname}, false);
+//				firstChart.xAxis[0].setCategories(categories, false);
+//				firstChart.series[0].remove(false);
+//				firstChart.addSeries(series);
+//				firstChart.redraw();
+//			}
+//			var firstChart = new Highcharts.Chart({
+//				chart: {
+//		          	renderTo: "viewFirst",
+//		          	type: "column",
+//		    		plotBorderColor: "#999",
+//		    		plotBorderWidth: 0
+//		        },
+//		        title: {
+//		            text: viewFirst["name"]
+//		        },
+//		        subtitle: {
+//		            text: viewFirst["subname"]
+//		        },
+//		        xAxis: {
+//		            categories: viewFirst["categories"],
+//		            labels:{
+//		            	rotation: -45
+//	               	}
+//		        },
+//		        yAxis: {
+//		            min: 0,
+//		            labels: {
+//		            	enabled: false
+//		            },
+//		            title: {
+//		                text: ""
+//		            },
+//		            lineWidth: 0,
+//		            tickWidth: 0
+//		        },
+//		        credits: {
+//		    		enabled:false
+//		    	},
+//		        plotOptions: {
+//		            column: {
+//		                point: {
+//		                    events: {
+//		                        click: function() {
+//		                            var drilldown = this.drilldown;
+//		                            if (drilldown) { // drill down
+//		                                setChart(drilldown.name, drilldown.subname, drilldown.categories, drilldown.series);
+//		                            } else { // restore
+//		                                setChart(viewFirst["name"], viewFirst["subname"], viewFirst["categories"], viewFirst["series"]);
+//		                            }
+//		                        }
+//		                    }
+//		                },
+//		                cursor: 'pointer',
+//		                dataLabels: {
+//		                    enabled: false,
+//		                }
+//		            }
+//		        },
+//		        tooltip: {
+//		            formatter: function() {
+//		            	var point = this.point;
+//		            	if(point.drilldown){
+//		            		return "<b>"+this.x+"，<br/>点击查看版块详情。</b>";
+//		            	}else {
+//		            		return "<b>"+this.x+"</b>";
+//		            	}
+//		            }
+//		        },
+//		        series: [viewFirst["series"]]
+//			});
+//		};
+//		initChart(score, template, coursename);
+    </script>
+  </body>
+</html>

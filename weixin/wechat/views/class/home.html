@@ -1,0 +1,46 @@
+<!DOCTYPE HTML5>
+<html>
+  <head>
+  	<meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, width=device-width">
+    <title>班级空间</title>
+    <link href="../../public/css/class/home.css" rel="stylesheet" />
+  </head>
+  <body>
+	<a class="a-back" href="../school/home.html?type=zone">返回空间</a>
+  	<div id="home">
+  		<ul id="home-list">
+  			<!-- list -->
+  		</ul>
+  		<div id="more"><div id="loading"><span class="scale-point active-1 scalePoint"></span><span class="scale-point active-2 scalePoint"></span><span class="scale-point active-3 scalePoint"></span><span class="pullTxt">努力加载中</span></div></div>
+  	</div>
+  	<span id="publish" data-href="publish.html"><em class="icon icon-publish"></em><span>发布</span></span>
+  	<div id="comment-container">
+		<div class="comment-main">
+			<span class="tips">回复哈哈:</span>
+			<p class="textarea">
+				<textarea id="commentcontent" placeholder="期待更多有趣内容，请留下您的建议..."></textarea>
+			</p>
+			<p><a class="btn button-close" id="button-close" href="javascript:void(0)">取消</a><a class="btn button-confirm" id="button-confirm" href="javascript:void(0)">发送</a></p>
+		</div>
+	</div>
+  	<div id="slide">
+  		
+  	</div>
+  	<script>
+  		var g_config = {
+  			pageType: 'home',
+  			SPACE_ID: 1,//埋一下id
+  			userinfo: {
+  				USER_ID: 10067,
+				USER_ICON: '/public/images/1.jpg',
+				USER_NAME: '哈哈'
+  			}
+  		};
+  		var ROOTPath = '';
+  	</script>
+	<script src="../../public/js/lib/seajs/seajs/2.3.0/sea.js"></script>
+	<script src="../../public/js/config/lqt.js"></script>
+	<script>seajs.use("../../public/js/class/home.js");</script>
+  </body>
+</html>
