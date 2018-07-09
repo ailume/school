@@ -43,7 +43,11 @@ const apiRouter = {
   GET_HOMEWORKLIST: roterPath + "/app/homework/homeworkList",
   DEL_HOMEWORK: roterPath + "/app/homework/del",
   GET_HOMEWORKSCOPE: roterPath + "/app/homework/scope",
-  POST_HOMEWORKPUBLISH: roterPath + "/app/homework/publish"
+  POST_HOMEWORKPUBLISH: roterPath + "/app/homework/publish",
+
+  // 工资单
+  GET_WAGELIST: roterPath + "/app/wage/myWageList",
+  GET_WAGEINFO: roterPath + "/app/wage/myWageData"
 
 }
 export default apiRouter;

@@ -3,7 +3,7 @@
     <div class="back-div" ref="heightBack">
       <p @click="goBack()" class="up-back">返回</p>
     </div>
-    <div class="payroll-div">
+      <div class="payroll-div">
         <div class="payroll-title">
           <h1>
             <span>2018年</span>
@@ -11,7 +11,7 @@
           </h1>
         </div>
       </div>
-      <ul class="payroll-list">
+      <ul class="payroll-list-d">
           <li>
             <span>基本工资</span>
             <i>¥ 12,580</i>
@@ -40,13 +40,13 @@
             <span>扣除</span>
             <i>¥ - 580</i>
           </li>
-        </ul>
-        <div class="payroll-bottom">
-          <p>
-            <span>合计金额</span>
-            <a href="#">¥ 125,800</a>
-          </p>
-        </div>
+      </ul>
+      <div class="payroll-bottom">
+        <p>
+          <span>合计金额</span>
+          <a href="#">¥ 125,800</a>
+        </p>
+      </div>
   </div>
 </template>
 
@@ -125,11 +125,11 @@
      color: #48B319;
      font-size: @fontSize30;
    }
-   .payroll-list{
+   .payroll-list-d{
      width: 100%;
      padding-bottom: 100/@baseSize;
    }
-   .payroll-list li{
+   .payroll-list-d li{
      display: flex;
     justify-content: space-between;
     padding-left: 40/@baseSize;
@@ -139,11 +139,11 @@
      padding-bottom: 20/@baseSize;
      flex-flow:row;
    }
-   .payroll-list li:last-child i{
+   .payroll-list-d li:last-child i{
      font-size: @fontSize30;
       color: #E51C23;
    }
-    .payroll-list li span{
+    .payroll-list-d li span{
       font-size: @fontSize30;
       color: #666666;
       width: 80%;
@@ -153,11 +153,11 @@
       -webkit-box-orient:vertical;
       -webkit-line-clamp:2; 
     }
-   .payroll-list li:nth-child(even){
+   .payroll-list-d li:nth-child(even){
      background: #F4F9EE;
    }
 
-   .payroll-list li i{
+   .payroll-list-d li i{
      display: inline;
      font-style: normal;
    }

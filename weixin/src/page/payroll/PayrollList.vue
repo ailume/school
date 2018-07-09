@@ -4,112 +4,49 @@
       <p @click="goBack()" class="up-back">返回</p>
     </div>
     
-    <div class="lisnem">
-       <div class="payroll-div">
-        <div class="payroll-title">
-          <h1>
-            <span>2017年全年</span>
-            <a href="javascript:;">
-              <x-address 
-                @on-hide="logHide" 
-                @on-show="logShow" 
-                :title="title" 
-                v-model="value" 
-                :list="addressData" 
-                @on-shadow-change="onShadowChange" 
-                :show.sync="showAddress"
-                >
-                </x-address>
-            </a>
-          </h1>
-        </div>
+    <div class="payroll-div">
+      <div class="payroll-title">
+        <h1>
+          <span>{{navTitle}}</span>
+          <a href="javascript:;">
+            <x-address 
+              @on-hide="logHide"
+              :title="title" 
+              v-model="value" 
+              :list="addressData" 
+              @on-shadow-change="onShadowChange" 
+              :show.sync="showAddress"
+              >
+              </x-address>
+          </a>
+        </h1>
+      </div>
     </div>
-    <ul class="payroll-list">
-          <li @click="goToDetail">
-            <span>1月</span>
-            <span>¥ 12,580</span>
+    <div class="lisnem" v-if="hasData">
+      <ul class="payroll-list-d" v-if="showDetail">
+          <li v-for="(item,index) in detailList" :class="addclassname(item.AMOUNT)">
+            <span>{{ item.NAME }}</span>
+            <i>¥ {{ item.AMOUNT }}</i>
           </li>
-          <li>
-            <span>2月</span>
-            <span>¥ 12,580</span>
-          </li>
-          <li>
-            <span>3月</span>
-            <span>¥ 12,580</span>
-          </li>
-          <li>
-            <span>4月</span>
-            <span>¥ 12,580</span>
-          </li>
-          <li>
-            <span>5月</span>
-            <span>¥ 12,580</span>
-          </li>
-          <li>
-            <span>6月</span>
-            <span>¥ 12,580</span>
-          </li>
-          <li>
-            <span>7月</span>
-            <span>¥ 12,580</span>
-          </li>
-          <li>
-            <span>8月</span>
-            <span>¥ 12,580</span>
-          </li>
-          <li>
-            <span>9月</span>
-            <span>¥ 12,580</span>
-          </li>
-          <li>
-            <span>10月</span>
-            <span>¥ 12,580</span>
-          </li>
-          <li>
-            <span>11月</span>
-            <span>¥ 12,580</span>
-          </li>
-          <li>
-            <span>12月</span>
-            <span>¥ 12,580</span>
-          </li>
-          <li>
-            <span>10月</span>
-            <span>¥ 12,580</span>
-          </li>
-          <li>
-            <span>11月</span>
-            <span>¥ 12,580</span>
-          </li>
-          <li>
-            <span>12月</span>
-            <span>¥ 12,580</span>
-          </li>
-          <li>
-            <span>10月</span>
-            <span>¥ 12,580</span>
-          </li>
-          <li>
-            <span>11月</span>
-            <span>¥ 12,580</span>
-          </li>
-          <li>
-            <span>12月</span>
-            <span>¥ 12,580</span>
+      </ul>
+      <ul class="payroll-list" v-else>
+        <li v-for="(item,index) in listList" :class="addclassname(item.AMOUNT)">
+            <span>{{ item.WAGE_MONTH_NAME }}</span>
+            <i>¥ {{ item.TOTAL }}</i>
           </li>
 
-        </ul>
-        <div class="payroll-bottom">
-          <p>
-            <span>合计金额</span>
-            <a href="#">¥ 125,800</a>
-          </p>
-        </div> 
+      </ul>
+      <div class="payroll-bottom">
+        <p>
+          <span>合计金额</span>
+          <span>¥ {{ total }}</span>
+        </p>
+      </div> 
     </div>
 
 
 
-    <div class="empty" style="display:none">
+    <div class="empty" v-else>
       <img src="../../assets/emission.png" alt="">
       <span>暂时还没有相关信息哟〜</span>
     </div>
@@ -125,7 +62,6 @@
 <script type="es6">
   import Back from "../../components/common/Back.vue"
   import apiRouter from "../../config/api.js"
-   import {getSelectDates} from '../../utils/DateUtils';
   import { Group, XAddress, ChinaAddressV4Data, XButton, Cell, Value2nameFilter as value2name } from 'vux'
   export default {
     components: {
@@ -136,63 +72,115 @@
     Cell
     },
     mounted(){
-
+      console.log('this.addressData',this.addressData);
+      this.showDetailData();
     },
     data(){
       return {
         lastShow:false,
         wwwUrl:roterPath,
 
+        navTitle:'',
+        hasData:true,
+        showDetail:true,
+        detailList:[],
+        listList:[],
+        total:'',
+
+        yearCode:'',
+        wageID:'',
+
         title: '更换工资表',
-        value_0_1: [],
         value: [],
-        title2: '设置值',
-        value2: ['天津市', '市辖区', '和平区'],
-        value3: ['广东省', '中山市', '--'],
-        addressData: ChinaAddressV4Data,
-        value4: [],
-        value5: ['广东省', '深圳 市', '南山区'],
+        addressData: [],
         showAddress: false
       }
     },
     methods: {
+      showDetailData(){
+        let _this = this;
+        let pathUrl = apiRouter.GET_WAGEINFO + "?"+
+          'yearCode=' + this.yearCode +
+          "&id=" + this.wageID;
+        this.$http.get(pathUrl).then(response => {
+          if( response.status === 200 ){
+            var _data = response.body.data;
+            _this.showDetail = true;
+            _this.navTitle = _data.year_code;
+            _this.hasData = !!_data.detail_list.length;
+            _this.detailList = _data.detail_list;
+            _this.addressData = _this.getSelectDates(_data.sel_list);
+            _this.total = _data.total;
+          }
+        }, response => {
+          alert("请求失败了!!!!")
+        });
+      },
+      showListData(){
+        let _this = this;
+        let pathUrl = apiRouter.GET_WAGELIST + "?"+
+          'yearCode=' + this.yearCode;
+        this.$http.get(pathUrl).then(response => {
+          if( response.status === 200 ){
+            var _data = response.body.data;
+            _this.showDetail = false;
+            _this.navTitle = _this.yearCode+'年全年';
+            _this.hasData = !!_data.list.length;
+            _this.listList = _data.list;
+            _this.total = _data.total;
+          }
+        }, response => {
+          alert("请求失败了!!!!")
+        });
+      },
+      getSelectDates:function(selectList){
+        let selList = [];
+        selectList.map(item => {
+          selList.push({
+            name: item.YEAR_NAME,
+            value: item.YEAR_CODE,
+          });
+          item.WAGE_LIST.map(item_sub => {
+            selList.push({
+              name: item_sub.WAGE_NAME,
+              value: item_sub.WAGE_ID,
+              parent: item.YEAR_CODE,
+            });
+          });
+        });
+        return selList;
+      },
       goBack(){
         window.location.replace(roterPath + "/weixin/wechat/dist/index.html")
       },
       goToDetail(){
         this.$router.push({ path: "payrolldetail" });
       },
-      
+      addclassname:function(num){
+        if(num < 0){
+          return 'negative'
+        }
+      },
 
-      doShowAddress () {
-      this.showAddress = true
-      setTimeout(() => {
-        this.showAddress = false
-      }, 2000)
-    },
-    onShadowChange (ids, names) {
-      console.log(ids, names)
-    },
-    changeData () {
-      this.value2 = ['430000', '430400', '430407']
-    },
-    changeDataByLabels () {
-      this.value2 = ['广东省', '广州市', '天河区']
-    },
-    changeDataByLabels2 () {
-      this.value2 = ['广东省', '中山市', '--']
-    },
-    getName (value) {
-      return value2name(value, ChinaAddressV4Data)
-    },
-    logHide (str) {
-      console.log('on-hide', str)
-    },
-    logShow (str) {
-      console.log('on-show')
+      onShadowChange (ids, names) {
+        this.yearCode = ids[0];
+        this.wageID = ids[1];
+      },
+      logHide (str) {
+        console.log('on-hide', str)
+        if(str){
+          if(this.wageID){
+            this.showDetailData();
+          }else {
+            this.showListData();
+          }
+        }
+      },
+      logShow (str) {
+        console.log('on-show')
+      }
+        
     }
-      
-  }
   }
 </script>
 
@@ -269,8 +257,48 @@
    .payroll-list li:nth-child(even){
      background: #F4F9EE;
    }
+   .payroll-list li i{
+     display: inline;
+     font-style: normal;
+   }
 
-.payroll-bottom{
+   .payroll-list-d{
+     width: 100%;
+     padding-bottom: 100/@baseSize;
+   }
+   .payroll-list-d li{
+     display: flex;
+    justify-content: space-between;
+    padding-left: 40/@baseSize;
+     padding-right: 40/@baseSize;
+     box-sizing: border-box;
+     padding-top: 20/@baseSize;
+     padding-bottom: 20/@baseSize;
+     flex-flow:row;
+    font-size: @fontSize30;
+   }
+   .payroll-list-d li.negative i{
+      color: #E51C23;
+   }
+    .payroll-list-d li span{
+      color: #666666;
+      width: 80%;
+      overflow:hidden; 
+      text-overflow:ellipsis;
+      display:-webkit-box; 
+      -webkit-box-orient:vertical;
+      -webkit-line-clamp:2; 
+    }
+   .payroll-list-d li:nth-child(even){
+     background: #F4F9EE;
+   }
+
+   .payroll-list-d li i{
+     display: inline;
+     font-style: normal;
+   }
+
+  .payroll-bottom{
       width: 100%;
       height: 100/@baseSize;
       font-size:@fontSize36;
@@ -282,7 +310,7 @@
       left:0;
      
       background: #ffffff;
-}
+  }
    .payroll-bottom p{
      width: 100%;
      height: 100/@baseSize;
