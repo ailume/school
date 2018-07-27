@@ -23,6 +23,7 @@ import Publish from "../page/publish/publish.vue"
 import PayrollList from "../page/payroll/PayrollList.vue"
 import PayrollDetail from "../page/payroll/PayrollDetail.vue"
 
+import spaceDetail from "../page/space/spaceDetail.vue"
 
 Vue.use(Router)
 export default new Router({
@@ -140,8 +141,19 @@ export default new Router({
       path: '/payrolldetail',
       name: 'payrolldetail',
       component: PayrollDetail
+    },
+
+
+  
+    {
+      
+      path: '/spaceDetail',
+      name: 'spaceDetail',
+      component: spaceDetail
     }
 
+
+    
 
     
 

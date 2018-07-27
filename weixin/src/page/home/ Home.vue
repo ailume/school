@@ -61,11 +61,15 @@
         :class="{ active: isActive }"
         @click="sendNotice()">发通知</span>
       <span
-        class="send send-quest" style="color: #FFFFFF; background: #dddddd"
-        :class="{ myquest: isActive }">发问卷</span>
+        class="send send-quest"
+        :class="{ myquest: isActive }"
+        @click="sendVideo()"
+        >发视频</span>
       <span
-        class="send send-vote" style="color: #FFFFFF; background: #dddddd"
-        :class="{ myvote: isActive }">发投票</span>
+        class="send send-vote"
+        :class="{ myvote: isActive }"
+        @click="sendPhoto()"
+        >发照片</span>
       <span
         class="send send-work" style=""
         :class="{ mywork: isActive}"
@@ -88,6 +92,9 @@ export default {
   methods: {
     closedSend() {
       this.isActive = false;
+    },
+    toSpace(){
+      this.$router.push({ path: "spaceIndex" });
     },
     showList() {
       this.$http.get(apiRouter.GET_LIST).then(function(response) {
@@ -131,7 +138,15 @@ export default {
 
     announce() {
       this.$router.push({ path: "announce" });
+    },
+
+    sendVideo(){
+      this.$router.push({ path: "spaceDetail",query:{path:"video"}});
+    },
+    sendPhoto(){
+      this.$router.push({ path: "spaceDetail",query:{path:"photo"}});
     }
+
   },
   data() {
     return {

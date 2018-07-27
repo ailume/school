@@ -3,18 +3,18 @@
     <div class="back-div" ref="heightBack">
       <p @click="goBack()" class="up-back">返回</p>
     </div>
-    
+
     <div class="payroll-div">
       <div class="payroll-title">
         <h1>
-          <span>{{navTitle}}</span>
+          <span>{{titleName}}</span>
           <a href="javascript:;">
-            <x-address 
+            <x-address
               @on-hide="logHide"
-              :title="title" 
-              v-model="value" 
-              :list="addressData" 
-              @on-shadow-change="onShadowChange" 
+              :title="title"
+              v-model="value"
+              :list="addressData"
+              @on-shadow-change="onShadowChange"
               :show.sync="showAddress"
               >
               </x-address>
@@ -26,7 +26,7 @@
       <ul class="payroll-list-d" v-if="showDetail">
           <li v-for="(item,index) in detailList" :class="addclassname(item.AMOUNT)">
             <span>{{ item.NAME }}</span>
-            <i>¥ {{ item.AMOUNT }}</i>
+            <i> {{ item.AMOUNT }}</i>
           </li>
       </ul>
       <ul class="payroll-list" v-else>
@@ -41,7 +41,7 @@
           <span>合计金额</span>
           <span>¥ {{ total }}</span>
         </p>
-      </div> 
+      </div>
     </div>
 
 
@@ -50,8 +50,8 @@
       <img src="../../assets/emission.png" alt="">
       <span>暂时还没有相关信息哟〜</span>
     </div>
-  
-    
+
+
 
   </div>
 
@@ -90,10 +90,15 @@
         yearCode:'',
         wageID:'',
 
+        titleName:'',
+
         title: '更换工资表',
         value: [],
         addressData: [],
-        showAddress: false
+        showAddress: false,
+
+        currtYear:'',
+        currtMonth:''
       }
     },
     methods: {
@@ -106,11 +111,18 @@
           if( response.status === 200 ){
             var _data = response.body.data;
             _this.showDetail = true;
+            console.log(_data);
             _this.navTitle = _data.year_code;
             _this.hasData = !!_data.detail_list.length;
             _this.detailList = _data.detail_list;
             _this.addressData = _this.getSelectDates(_data.sel_list);
             _this.total = _data.total;
+            console.log(this.addressData);
+
+            this.currtYear= _data.year_code;
+            this.currtMonth= _data.wage_id;
+            this.value.push(this.currtYear);
+            this.value.push(this.currtMonth);
           }
         }, response => {
           alert("请求失败了!!!!")
@@ -165,6 +177,7 @@
       onShadowChange (ids, names) {
         this.yearCode = ids[0];
         this.wageID = ids[1];
+        this.titleName = names[1];
       },
       logHide (str) {
         console.log('on-hide', str)
@@ -179,7 +192,7 @@
       logShow (str) {
         console.log('on-show')
       }
-        
+
     }
   }
 </script>
@@ -233,6 +246,10 @@
    .payroll-title h1 span{
      color: #333333;
      font-size: @fontSize30;
+     width: 70%;
+     overflow: hidden;
+     text-overflow: ellipsis;
+     white-space: nowrap;
    }
    .payroll-title h1 a{
      color: #48B319;
@@ -283,11 +300,11 @@
     .payroll-list-d li span{
       color: #666666;
       width: 80%;
-      overflow:hidden; 
+      overflow:hidden;
       text-overflow:ellipsis;
-      display:-webkit-box; 
+      display:-webkit-box;
       -webkit-box-orient:vertical;
-      -webkit-line-clamp:2; 
+      -webkit-line-clamp:2;
     }
    .payroll-list-d li:nth-child(even){
      background: #F4F9EE;
@@ -308,7 +325,7 @@
       position: fixed;
       bottom:0;
       left:0;
-     
+
       background: #ffffff;
   }
    .payroll-bottom p{
@@ -342,7 +359,7 @@
       width: 208/@baseSize;
       display: block;
     }
-    
+
   .empty span{
     padding-top: 74/@baseSize;
     font-size:  @fontSize30;
@@ -353,5 +370,11 @@
     padding: 0;
   }
 
-  
+
+
+  .popup-style{
+    background: red;
+  }
+
+
 </style>

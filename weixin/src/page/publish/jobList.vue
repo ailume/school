@@ -9,7 +9,7 @@
         <div class="message-icon"></div>
         <a :href="wwwUrl + news.ID" class="message-info">
           <h3>{{news.TITLE}}</h3>
-          <p>截止时间：{{news.OUTDATE}}</p>
+          <p>发布对象：{{news.NAMES}}</p>
         </a>
         <div class="message-handle">
           <a class="publishBtn inform pubisnBtn">已发布</a>
@@ -27,7 +27,7 @@
       <confirm
         v-model="popup"
         :close-on-confirm="false"
-        :title="('是否确认删除本条信息？')"
+        :title="('是否确认删除本条作业？')"
         @on-confirm="onConfirm(this.id)"
         confirmText="是，我要删除"
       >
@@ -99,7 +99,7 @@
           }
         }, erro => {
         });
-        
+
         this.popup = false;
         return;
         this.$vux.loading.show({
@@ -356,7 +356,7 @@ a.delete {
 
 
   .pubisnBtn{
-    color: #F09709 
+    color: #F09709
   }
 
 </style>
