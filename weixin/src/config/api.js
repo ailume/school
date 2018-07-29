@@ -45,6 +45,10 @@ const apiRouter = {
   GET_HOMEWORKSCOPE: roterPath + "/app/homework/scope",
   POST_HOMEWORKPUBLISH: roterPath + "/app/homework/publish",
 
+  // 图片视频上传
+  POST_IMG: roterPath + "/app/upload/img",
+  GET_VIDEO: roterPath + "/app/upload/video",
+
   // 工资单
   GET_WAGELIST: roterPath + "/app/wage/myWageList",
   GET_WAGEINFO: roterPath + "/app/wage/myWageData"

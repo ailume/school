@@ -30,10 +30,13 @@
           <!-- <a class="up-photo" href="javascript:;" @click="onClickUp()" v-show="imgLenght">
             <img src="../../assets/addup.jpg" alt="">
           </a> -->
-           <div id='image-list' class="mui_uploader">
-                <input id="uploaderInput" class="mui_uploader_input" type="file" multiple  accept="image/*" >
-              </div>
-            <div><span id="uploaderInput_mess"></span></div>
+          <div id='image-list' class="mui_uploader">
+              <input id="uploaderInput" class="mui_uploader_input" value="" type="file" multiple  accept="image/*" >
+          </div>
+          <div id="all_pic">
+              <img v-for="(item,index) in imgfileData" style='width:50px;height:50px' :src="getimgUrl(item.url)" />
+          </div>
+          <div><span id="uploaderInput_mess"></span></div>
       </div>
     </div>
 
@@ -43,7 +46,7 @@
         <!-- <p>注：小视频的长度不能超过10秒,超过的视频服务器会自动截取前10秒内容。</p> -->
         <div>
             <button
-                @click="goUploder()"
+                @click="submit()"
                 class="btn-uploder right"
                 type="submit"
                 >发布
@@ -88,7 +91,8 @@
     //timeData()
   },
     mounted(){
-        
+      let _this = this
+      _this.onClickUp()
     },
     data(){
       return {
@@ -98,7 +102,8 @@
           showPositionValue: false,
           showToast: true,
           position: "default",
-          toastMessage: ""
+          toastMessage: "",
+          imgfileData:[],
       }
     },
     methods: {
@@ -108,44 +113,68 @@
       onEvent (event) {
         //   console.log('on', event)
       },
-
-
-    // 上传图片
-    onClickUp() {
-      let data=[];
-    let formData = new FormData();
-    var f2 = document.querySelector('#uploaderInput');
-    f2.onchange = function (e) {
-        var files = e.target.files;
-        var len = files.length;
-        // console.log(files)
-//		console.log($("#uploaderInput")[0].files)
-        if (len > 9){
-            alert('图片最多只能上传9张', 'error');
-            return false;
+      // 上传图片
+      onClickUp() {
+        let _this = this;
+        let formData = new FormData();
+        var f2 = document.querySelector('#uploaderInput');
+        f2.onchange = function (e) {
+            var files = e.target.files;
+            var len = files.length;
+            var data = [];
+            if (len > 9 || _this.imgfileData.length + len > 9 ){
+                alert('图片最多只能上传9张', 'error');
+                e.target.value = '';
+                return false;
+            }
+            for(var i=0;i<len;i++){
+                //$("#all_pic").append("<div style='float: left;width:100px;height:50px' name='all_pic_img'><img style='width:50px;height:50px' src='"+getFileURL(files[i])+"'/><a onclick=\"del('"+files[i].name+"',"+i+")\" id='all_pic_img_"+i+"'>删除</a></div>")
+                var a={
+                    'val':files[i]
+                };
+                data.push(a);
+            }
+            _this.goUploder(data,function(re_files){
+                e.target.value = '';
+                _this.imgfileData = _this.imgfileData.concat(re_files);
+                console.log('_this.imgfileData::',_this.imgfileData);
+            })
         }
-        var img =  $("div[name='all_pic_img']");
-        if (img.length + len > 9 ){
-            alert('图片最多只能上传9张', 'error');
-            return false;
+      },
+      del(name,id){
+          var r=confirm("是否删除？");
+          if(r==true){
+              data.splice(id, 1)
+              $("#all_pic_img_"+id).parent().remove();
+          }
+      },
+      goUploder(data,callback){
+        let _this = this;
+        let len = data.length;
+        let formData = new FormData();
+        if(len < 1){
+          alert("请选择文件")
+        }else {
+          for(var i=0;i<len;i++){
+            formData.append('file',data[i].val);
+          }
+          _this.$http.post(apiRouter.POST_IMG,formData)
+          .then(
+            (response) => {
+              if( response.status === 200 ){
+                let _files = response.body.files;
+                callback && callback(_files);
+              }
+            },
+            (error) => {
+              alert("请求失败了!!!!")
+            }
+          );
         }
-        for(var i=0;i<len;i++){
-            $("#all_pic").append("<div style='float: left;width:100px;height:50px' name='all_pic_img'><img style='width:50px;height:50px' src='"+getFileURL(files[i])+"'/><a onclick=\"del('"+files[i].name+"',"+i+")\" id='all_pic_img_"+i+"'>删除</a></div>")
-            var a={
-                'val':files[i]
-            };
-            data.push(a);
-        }
-    }
-    function del(name,id){
-        var r=confirm("是否删除？");
-        if(r==true){
-            data.splice(id, 1)
-            $("#all_pic_img_"+id).parent().remove();
-        }
-    }
-    },
-
+      },
+      getimgUrl(uri){
+        return "https://gz.lqtedu.com"+uri
+      }
     }
   }
 </script>
