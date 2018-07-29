@@ -60,7 +60,7 @@
               <div class="accessory-img clearfix">
                 <ul class="photo-img">
                   <li  v-for="(item,index) in videoFilesData" :key="index">
-                    <img :src="getimgUrl(item)" alt="" class="imgud">
+                    <img :src="getimgUrl(item.imgUrl)" alt="" class="imgud">
                     <img src="../../assets/cancel.png" alt="" class="cancel" @click="clodesd(getimgUrl(item.url))">
                   </li>
                 </ul>
@@ -70,10 +70,9 @@
                       <input id="uploaderInputVideo" class="mui_uploader_input" value="" type="file"  accept="video/*" capture="camcorder" >
                     </div>
                   </a>
-                  <!-- <div id="all_pic">
-                      <img v-for="(item,index) in imgfileData" :key="index" style='width:50px;height:50px' :src="getimgUrl(item.url)" />
-                  </div>
-                  <div><span id="uploaderInput_mess"></span></div> -->
+                  <video width="352" height="264" controls autobuffer v-if="videoFiles.videoUrl">
+                    <source :src="getimgUrl(videoFiles.videoUrl)" type='video/mp4; codecs="avc1.42E01E, mp4a.40.2"'></source>
+                  </video>
               </div>
             </div>
 
@@ -157,6 +156,7 @@
           imgfileData:[],
           pathImgs:[],
           videoFilesData:[],
+          videoFiles:{},
           SPACE_ID:'',
           CONTENT:'',
           IMG_LIST:'',
@@ -275,29 +275,27 @@
           let formData = new FormData();
           var f2 = document.querySelector('#uploaderInputVideo');
           f2.onchange = function (e) {
-            console.log(e);
-              var files = e.target.files;
-              var len = files.length;
-              var data = [];
-              console.log(e.target.files);
-              if (len > 1 || _this.videoFilesData.length + len > 1 ){
-                  alert('图片最多只能上传1张', 'error');
-                  e.target.value = '';
-                  return false;
-              }
-              for(var i=0;i<len;i++){
-                  //$("#all_pic").append("<div style='float: left;width:100px;height:50px' name='all_pic_img'><img style='width:50px;height:50px' src='"+getFileURL(files[i])+"'/><a onclick=\"del('"+files[i].name+"',"+i+")\" id='all_pic_img_"+i+"'>删除</a></div>")
-                  var a={
-                      'val':files[i]
-                  };
-                  data.push(a);
-              }
-              _this.goUploderVideo(data,function(re_files){
-                  e.target.value = '';
-                  _this.videoFilesData = _this.videoFilesData.concat(re_files);
-                  console.log('_this.videoFilesData::',_this.videoFilesData);
+            var files = f2.files;
+            var len = files.length;
+            var data = [];
+            console.log('files::',files);
+            if (len > 1 || _this.videoFilesData.length + len > 1 ){
+                alert('图片最多只能上传1张', 'error');
+                e.target.value = '';
+                return false;
+            } else {
+              var a={
+                'val':files[0]
+              };
+              data.push(a);
+            }
+            _this.goUploderVideo(data,function(re_file){
+                e.target.value = '';
+                _this.videoFiles = re_file;
+                //_this.videoFilesData = _this.videoFilesData.concat(re_files);
+                console.log('_this.videoFiles::',_this.videoFiles);
 
-              })
+            })
           }
         },
 
@@ -315,8 +313,8 @@
           .then(
             (response) => {
               if( response.status === 200 ){
-                let _files = response.body.files;
-                callback && callback(_files);
+                let _file = response.body.file;
+                callback && callback(_file);
               }
             },
             (error) => {
