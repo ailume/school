@@ -70,9 +70,11 @@
                       <input id="uploaderInputVideo" class="mui_uploader_input" value="" type="file"  accept="video/*" capture="camcorder" >
                     </div>
                   </a>
-                  <video width="352" height="264" controls autobuffer v-for="(item,index) in videoFilesData" :key="index">
-                    <source :src="getimgUrl(item.videoUrl)" type='video/mp4; codecs="avc1.42E01E, mp4a.40.2"'></source>
-                  </video>
+              </div>
+              <div class="accessory-video" v-if="videoFiles.videoUrl">
+                <video id=“videoid” class="video" controls autobuffer>
+                  <source :src="getimgUrl(videoFiles.videoUrl)" type='video/mp4; codecs="avc1.42E01E, mp4a.40.2"'></source>
+                </video>
               </div>
             </div>
 
@@ -156,6 +158,7 @@
           imgfileData:[],
           pathImgs:[],
           videoFilesData:[],
+          videoFiles:{},
           SPACE_ID:'',
           CONTENT:'',
           IMG_LIST:'',
@@ -290,6 +293,7 @@
             _this.goUploderVideo(data,function(re_file){
                 e.target.value = '';
                 setTimeout(() => {
+                  _this.videoFiles = re_file;
                   _this.videoFilesData.push(re_file);
                 }, 2500);
                 console.log('_this.videoFiles::',_this.videoFiles);
@@ -299,30 +303,32 @@
         },
 
         goUploderVideo(data,callback){
-        let _this = this;
-        let len = data.length;
-        let formData = new FormData();
-        if(len < 1){
-          alert("请选择文件")
-        }else {
-          for(var i=0;i<len;i++){
-            formData.append('file',data[i].val);
-          }
-          _this.$http.post(apiRouter.GET_VIDEO,formData)
-          .then(
-            (response) => {
-              if( response.status === 200 ){
-                let _file = response.body.file;
-                callback && callback(_file);
-              }
-            },
-            (error) => {
-              alert("请求失败了!!!!")
+          let _this = this;
+          let len = data.length;
+          let formData = new FormData();
+          if(len < 1){
+            alert("请选择文件")
+          }else {
+            for(var i=0;i<len;i++){
+              formData.append('file',data[i].val);
             }
-          );
-        }
-      },
+            _this.$http.post(apiRouter.POST_VIDEO,formData)
+            .then(
+              (response) => {
+                if( response.status === 200 ){
+                  let _file = response.body.file;
+                  callback && callback(_file);
+                }
+              },
+              (error) => {
+                alert("请求失败了!!!!")
+              }
+            );
+          }
+        },
+        videopaly(){
 
+        }
 
     }
 
@@ -465,5 +471,13 @@
     opacity: 0;
   }
 
+  .accessory-video {
+    position:relative;
+    width:400/@baseSize;
+    .video {
+      width:100%;
+      vertical-align: middle;
+    }
+  }
 
 </style>

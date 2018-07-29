@@ -47,7 +47,7 @@ const apiRouter = {
 
   // 图片视频上传
   POST_IMG: roterPath + "/app/upload/img",
-  GET_VIDEO: roterPath + "/app/upload/video",
+  POST_VIDEO: roterPath + "/app/upload/video",
 
   SEND_SPACE: roterPath + "/app/space/publish",  // 发布帖子
   
