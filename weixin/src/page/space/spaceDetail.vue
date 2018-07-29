@@ -70,8 +70,8 @@
                       <input id="uploaderInputVideo" class="mui_uploader_input" value="" type="file"  accept="video/*" capture="camcorder" >
                     </div>
                   </a>
-                  <video width="352" height="264" controls autobuffer v-if="videoFiles.videoUrl">
-                    <source :src="getimgUrl(videoFiles.videoUrl)" type='video/mp4; codecs="avc1.42E01E, mp4a.40.2"'></source>
+                  <video width="352" height="264" controls autobuffer v-for="(item,index) in videoFilesData" :key="index">
+                    <source :src="getimgUrl(item.videoUrl)" type='video/mp4; codecs="avc1.42E01E, mp4a.40.2"'></source>
                   </video>
               </div>
             </div>
@@ -156,7 +156,6 @@
           imgfileData:[],
           pathImgs:[],
           videoFilesData:[],
-          videoFiles:{},
           SPACE_ID:'',
           CONTENT:'',
           IMG_LIST:'',
@@ -278,9 +277,8 @@
             var files = f2.files;
             var len = files.length;
             var data = [];
-            console.log('files::',files);
             if (len > 1 || _this.videoFilesData.length + len > 1 ){
-                alert('图片最多只能上传1张', 'error');
+                alert('视频最多只能上传1个', 'error');
                 e.target.value = '';
                 return false;
             } else {
@@ -291,8 +289,9 @@
             }
             _this.goUploderVideo(data,function(re_file){
                 e.target.value = '';
-                _this.videoFiles = re_file;
-                //_this.videoFilesData = _this.videoFilesData.concat(re_files);
+                setTimeout(() => {
+                  _this.videoFilesData.push(re_file);
+                }, 2500);
                 console.log('_this.videoFiles::',_this.videoFiles);
 
             })
