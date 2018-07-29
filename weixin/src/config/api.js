@@ -49,6 +49,12 @@ const apiRouter = {
   POST_IMG: roterPath + "/app/upload/img",
   GET_VIDEO: roterPath + "/app/upload/video",
 
+  SEND_SPACE: roterPath + "/app/space/publish",  // 发布帖子
+  
+
+
+
+
   // 工资单
   GET_WAGELIST: roterPath + "/app/wage/myWageList",
   GET_WAGEINFO: roterPath + "/app/wage/myWageData"

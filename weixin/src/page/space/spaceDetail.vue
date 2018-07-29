@@ -18,40 +18,80 @@
     </div>
 
 
-    <div class="photo-ims"></div>
-    <div class="accessory-box">
-      <div class="accessory-img clearfix">
-        <ul class="photo-img">
-          <!-- <li v-for="(item,index) in uploadImg" :key="index">
-            <img :src="item" alt="" class="imgud">
-            <img src="../../assets/cancel.png" alt="" class="cancel" @click="clodesd(index)">
-          </li> -->
-        </ul>
-          <!-- <a class="up-photo" href="javascript:;" @click="onClickUp()" v-show="imgLenght">
-            <img src="../../assets/addup.jpg" alt="">
-          </a> -->
-          <div id='image-list' class="mui_uploader">
-              <input id="uploaderInput" class="mui_uploader_input" value="" type="file" multiple  accept="image/*" >
-          </div>
-          <div id="all_pic">
-              <img v-for="(item,index) in imgfileData" style='width:50px;height:50px' :src="getimgUrl(item.url)" />
-          </div>
-          <div><span id="uploaderInput_mess"></span></div>
-      </div>
-    </div>
 
-    
+    <div class="send-type">
+         <div class="type-photo" v-if="this.type === 'photo'">
+            <div class="accessory-box">
+              <div class="accessory-img clearfix">
+                <ul class="photo-img">
+                  <li  v-for="(item,index) in imgfileData" :key="index">
+                    <img :src="getimgUrl(item.url)" alt="" class="imgud">
+                    <img src="../../assets/cancel.png" alt="" class="cancel" @click="clodesd(item.url,index)">
+                  </li>
+                </ul>
+                  <a class="up-photo" href="javascript:;">
+                    <img src="../../assets/addup.jpg" alt="">
+                    <div id='image-list' class="mui_uploader">
+                      <input id="uploaderInput" class="mui_uploader_input" value="" type="file" multiple  accept="image/*" >
+                    </div>
+                  </a>
+                  <!-- <div id="all_pic">
+                      <img v-for="(item,index) in imgfileData" :key="index" style='width:50px;height:50px' :src="getimgUrl(item.url)" />
+                  </div>
+                  <div><span id="uploaderInput_mess"></span></div> -->
+              </div>
+            </div>
 
-    <div class="ps-info">
-        <!-- <p>注：小视频的长度不能超过10秒,超过的视频服务器会自动截取前10秒内容。</p> -->
-        <div>
-            <button
-                @click="submit()"
-                class="btn-uploder right"
-                type="submit"
-                >发布
-            </button>
+            <div class="ps-info">
+                <!-- <p>注：小视频的长度不能超过10秒,超过的视频服务器会自动截取前10秒内容。</p> -->
+                <div>
+                    <button
+                        @click="submit()"
+                        class="btn-uploder right"
+                        type="submit"
+                        >发布
+                    </button>
+                </div>
+            </div>
+         </div>
+
+        <div class="type-video" v-if="this.type === 'video'">
+            <div class="accessory-box">
+              <div class="accessory-img clearfix">
+                <ul class="photo-img">
+                  <li  v-for="(item,index) in videoFilesData" :key="index">
+                    <img :src="getimgUrl(item)" alt="" class="imgud">
+                    <img src="../../assets/cancel.png" alt="" class="cancel" @click="clodesd(getimgUrl(item.url))">
+                  </li>
+                </ul>
+                  <a class="up-photo" href="javascript:;" v-show="imgLenght">
+                    <img src="../../assets/addup.jpg" alt="">
+                    <div id='image-list' class="mui_uploader">
+                      <input id="uploaderInputVideo" class="mui_uploader_input" value="" type="file"  accept="video/*" capture="camcorder" >
+                    </div>
+                  </a>
+                  <!-- <div id="all_pic">
+                      <img v-for="(item,index) in imgfileData" :key="index" style='width:50px;height:50px' :src="getimgUrl(item.url)" />
+                  </div>
+                  <div><span id="uploaderInput_mess"></span></div> -->
+              </div>
+            </div>
+
+            <div class="ps-info">
+                <p>注：小视频的长度不能超过10秒,超过的视频服务器会自动截取前10秒内容。</p>
+                <div>
+                    <button
+                        @click="submitVideo()"
+                        class="btn-uploder right"
+                        type="submit"
+                        >发布
+                    </button>
+                </div>
+            </div>
         </div>
+
+
+
     </div>
 
     <toast
@@ -70,6 +110,7 @@
 <script>
   import {Confirm,XTextarea, Group, XSwitch, XButton, Toast,TransferDomDirective as TransferDom} from 'vux'
   import Back from "../../components/common/Back.vue"
+  //import Photo from "./photo.vue"
   import apiRouter from "../../config/api.js"
     import wx from "weixin-js-sdk";
   import {mapMutations} from 'vuex'
@@ -89,13 +130,23 @@
     created: function() {
     //getSelectDates();
     //timeData()
+    this.type = this.$route.query.path;
+    console.log(this.type);
+
   },
     mounted(){
       let _this = this
-      _this.onClickUp()
+      _this.type = this.$route.query.path;
+      if( _this.type === 'photo' ){
+        _this.onClickUp()
+      }
+      if( _this.type === 'video' ){
+        _this.uploaderInputVideo()
+      }
     },
     data(){
       return {
+          type:'',
           contentValue: "",
           uploadImg:[],
           imgLenght: true,
@@ -104,6 +155,13 @@
           position: "default",
           toastMessage: "",
           imgfileData:[],
+          pathImgs:[],
+          videoFilesData:[],
+          SPACE_ID:'',
+          CONTENT:'',
+          IMG_LIST:'',
+          TOPIC_ID:'',
+          DEL_LIST:''
       }
     },
     methods: {
@@ -119,6 +177,7 @@
         let formData = new FormData();
         var f2 = document.querySelector('#uploaderInput');
         f2.onchange = function (e) {
+          console.log(e);
             var files = e.target.files;
             var len = files.length;
             var data = [];
@@ -138,14 +197,27 @@
                 e.target.value = '';
                 _this.imgfileData = _this.imgfileData.concat(re_files);
                 console.log('_this.imgfileData::',_this.imgfileData);
+
             })
         }
       },
-      del(name,id){
+      clodesd(url){
+          let _this = this;
+          let arr = [];
+          for(let i = 0; i < _this.imgfileData.length; i++) {
+            arr.push(_this.imgfileData[i].url)
+          }
+
           var r=confirm("是否删除？");
+          console.log(arr)
           if(r==true){
-              data.splice(id, 1)
-              $("#all_pic_img_"+id).parent().remove();
+              var index = arr.indexOf(url);
+              console.log(index);
+              if (index > -1) {
+                  _this.imgfileData.splice(index, 1);
+                  console.log(_this.imgfileData);
+              }
+              // $("#all_pic_img_"+id).parent().remove();
           }
       },
       goUploder(data,callback){
@@ -174,8 +246,90 @@
       },
       getimgUrl(uri){
         return "https://gz.lqtedu.com"+uri
-      }
+      },
+      submit(){
+        let _this = this;
+        // let objData = {
+        //     SPACE_ID
+        //     CONTENT:_this.contentValue
+        // }
+        let url = apiRouter.SEND_SPACE + "?SPACE_ID=" +  _this.SPACE_ID + '&CONTENT=' + _this.CONTENT + '&IMG_LIST=' + _this.IMG_LIST + '&TOPIC_ID=' + _this.TOPIC_ID + '&DEL_LIST=' + _this.DEL_LIST;
+         _this.$http.post(url,objData)
+          .then(
+            (response) => {
+              if( response.status === 200 ){
+                alert("ok")
+              }
+            },
+            (error) => {
+              alert("请求失败了!!!!")
+            }
+          );
+      },
+
+
+
+        // 上传视频
+        uploaderInputVideo(){
+          let _this = this;
+          let formData = new FormData();
+          var f2 = document.querySelector('#uploaderInputVideo');
+          f2.onchange = function (e) {
+            console.log(e);
+              var files = e.target.files;
+              var len = files.length;
+              var data = [];
+              console.log(e.target.files);
+              if (len > 1 || _this.videoFilesData.length + len > 1 ){
+                  alert('图片最多只能上传1张', 'error');
+                  e.target.value = '';
+                  return false;
+              }
+              for(var i=0;i<len;i++){
+                  //$("#all_pic").append("<div style='float: left;width:100px;height:50px' name='all_pic_img'><img style='width:50px;height:50px' src='"+getFileURL(files[i])+"'/><a onclick=\"del('"+files[i].name+"',"+i+")\" id='all_pic_img_"+i+"'>删除</a></div>")
+                  var a={
+                      'val':files[i]
+                  };
+                  data.push(a);
+              }
+              _this.goUploderVideo(data,function(re_files){
+                  e.target.value = '';
+                  _this.videoFilesData = _this.videoFilesData.concat(re_files);
+                  console.log('_this.videoFilesData::',_this.videoFilesData);
+
+              })
+          }
+        },
+
+        goUploderVideo(data,callback){
+        let _this = this;
+        let len = data.length;
+        let formData = new FormData();
+        if(len < 1){
+          alert("请选择文件")
+        }else {
+          for(var i=0;i<len;i++){
+            formData.append('file',data[i].val);
+          }
+          _this.$http.post(apiRouter.GET_VIDEO,formData)
+          .then(
+            (response) => {
+              if( response.status === 200 ){
+                let _files = response.body.files;
+                callback && callback(_files);
+              }
+            },
+            (error) => {
+              alert("请求失败了!!!!")
+            }
+          );
+        }
+      },
+
+
     }
+
+
   }
 </script>
 
@@ -231,15 +385,19 @@
   }
   .up-photo{
     margin-left: 20/@baseSize;
+    width: 150/@baseSize;
+    height: 150/@baseSize;
+    display: block;
+    position: relative;
   }
 
   .photo-img li {
     margin-right: 22/@baseSize;
     position: relative;
   }
-  .photo-img li:last-child{
-    margin-right: 0;
-  }
+  // .photo-img li:last-child{
+  //   margin-right: 0;
+  // }
 
   .photo-img li, .photo-img li img.imgud, .up-photo img {
     width: 150/@baseSize;
@@ -294,6 +452,21 @@
       margin-top: 30/@baseSize;
   }
 
-  
+
+
+  .mui_uploader{
+    width: 150/@baseSize;
+    height: 150/@baseSize;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+  }
+  .mui_uploader .mui_uploader_input{
+    width: 150/@baseSize;
+    height: 150/@baseSize;
+    display: block;
+    opacity: 0;
+  }
+
 
 </style>
