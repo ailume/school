@@ -70,8 +70,8 @@
                       <input id="uploaderInputVideo" class="mui_uploader_input" value="" type="file"  accept="video/*" capture="camcorder" >
                     </div>
                   </a>
-                  <video width="352" height="264" controls autobuffer v-if="videoFiles.videoUrl">
-                    <source :src="getimgUrl(videoFiles.videoUrl)" type='video/mp4; codecs="avc1.42E01E, mp4a.40.2"'></source>
+                  <video width="352" height="264" v-if="videoFiles.videoUrl" ref='video' controls="controls">
+                  您的浏览器不支持 video 标签。
                   </video>
               </div>
             </div>
@@ -292,7 +292,9 @@
             _this.goUploderVideo(data,function(re_file){
                 e.target.value = '';
                 _this.videoFiles = re_file;
-                //_this.videoFilesData = _this.videoFilesData.concat(re_files);
+                setTimeout(() => {
+                  _this.$refs.video.src = _this.getimgUrl(re_file.videoUrl)
+                }, 1000);
                 console.log('_this.videoFiles::',_this.videoFiles);
 
             })
